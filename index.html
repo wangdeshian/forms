@@ -103,12 +103,39 @@
             margin-top: 20px;
         }
         
+        /* 列印專屬設定 - 強制單頁滿版 */
+        @page {
+            size: A4 portrait;
+            margin: 8mm; /* 設定極窄的紙張邊界 */
+        }
         @media print {
-            body { background: #fff; padding: 0; font-size: 12px; }
-            .page-container { box-shadow: none; padding: 0; max-width: 100%; }
-            .btn-print { display: none; }
-            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; }
-            .indo { color: #333; }
+            body { 
+                background: #fff; 
+                padding: 0; 
+                font-size: 11px; /* 縮小整體字級 */
+            }
+            .page-container { 
+                box-shadow: none; 
+                padding: 0; 
+                max-width: 100%; 
+            }
+            .btn-print { 
+                display: none; 
+            }
+            .header h1 { font-size: 18px; margin: 2px 0; }
+            .header h2 { font-size: 14px; margin: 2px 0; }
+            th, td { 
+                padding: 3px 4px; /* 縮減表格內距 */
+                line-height: 1.2; /* 緊縮行高 */
+            }
+            label { margin-bottom: 1px; }
+            .indo { font-size: 9px; color: #333; } /* 列印時印尼文稍微縮小並加深顏色 */
+            input[type="text"], input[type="number"] { 
+                border-bottom: 1px solid #000; 
+                font-size: 11px;
+                padding: 0px;
+                height: 14px;
+            }
         }
     </style>
 </head>
@@ -145,7 +172,7 @@
             <td colspan="2">
                 姓名 NAMA：<input type="text" class="long-input"><br>
                 <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
-                與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text"><br>
+                與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 150px;"><br>
                 與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
                 房屋共 <input type="text" style="width: 40px;"> 層 Lantai，共 <input type="text" style="width: 40px;"> 坪 Luas<br>
                 <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
@@ -183,10 +210,10 @@
             </td>
             <td colspan="2">
                 <label><input type="checkbox"> 癱瘓程度 Tingkat kelumpuhan：</label><br>
-                　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label><br>
+                　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label> 
                 　<label><input type="checkbox"> 頸椎以下癱瘓</label> <label><input type="checkbox"> 全身癱瘓</label><br>
                 <label><input type="checkbox"> 行動能力 Mobilitas：</label><br>
-                　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label><br>
+                　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label> 
                 　<label><input type="checkbox"> 無法行走,需抱、移位</label><br>
                 <label><input type="checkbox"> 意識狀態 Keadaan sadar：</label><br>
                 　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 只能簡單對話</label><br>
@@ -226,21 +253,21 @@
             </td>
             <td colspan="2">
                 <strong>☆家庭清潔工作 / BERSIH RUMAH</strong><br>
-                <label><input type="checkbox"> 煮食三餐 Masak 3 Kali Sehari</label><br>
+                <label><input type="checkbox"> 煮食三餐 Masak 3 Kali Sehari</label>
                 <label><input type="checkbox"> 清潔打掃 BERSIH2</label><br>
-                <label><input type="checkbox"> 洗衣服 Cuci Baju</label><br>
+                <label><input type="checkbox"> 洗衣服 Cuci Baju</label>
                 <label><input type="checkbox"> 燙衣服 Gosok Baju</label><br>
-                <label><input type="checkbox"> 洗車 Cuci Mobil</label><br>
+                <label><input type="checkbox"> 洗車 Cuci Mobil</label>
                 <label><input type="checkbox"> 照顧寵物 Urus Binatang</label><br>
-                <label><input type="checkbox"> 買菜 Beli Sayur</label><br>
+                <label><input type="checkbox"> 買菜 Beli Sayur</label>
                 <label><input type="checkbox"> 做點心 Buat Kue</label><br>
-                <label><input type="checkbox"> 園藝 Urus Taman</label><br>
+                <label><input type="checkbox"> 園藝 Urus Taman</label>
                 <label><input type="checkbox"> 垃圾處理 Buang Sampah</label><br>
                 <label><input type="checkbox"> 其他家事 Pekerj Aan Lainnya</label>
                 <br><br>
                 <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
                 １．年齡 UMUR <input type="text" style="width: 30px;"> 歲 THN<br>
-                ２．身高 Tinggi <input type="text" style="width: 40px;"> cm　體重 Berat <input type="text" style="width: 40px;"> kg<br>
+                ２．身高 Tinggi <input type="text" style="width: 30px;"> cm　體重 Berat <input type="text" style="width: 30px;"> kg<br>
                 ３．婚姻 STATUS：<br>
                 　<label><input type="checkbox"> 已婚</label> <label><input type="checkbox"> 未婚</label> <label><input type="checkbox"> 離婚</label> <label><input type="checkbox"> 鰥寡</label><br>
                 ４．小孩 Anak kecil：<label><input type="checkbox"> 有 Ada</label>　<label><input type="checkbox"> 沒有 Tidak ada</label>
@@ -275,14 +302,14 @@
             <td colspan="4">
                 <strong>●女傭請詳閱工作後內容簽名並押指紋●</strong><br>
                 <span class="indo">Pembantu rumah harap membaca konten pasca kerja dengan cermat, menandatangani dan mengambil sidik jari Anda</span>
-                <br><br><br><br>
-                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 20px;">
+                <br><br><br>
+                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 10px;">
                     <div style="width: 30%;">
-                        <hr style="border-top: 1px solid #000;">
+                        <hr style="border-top: 1px solid #000; margin-bottom: 2px;">
                         雇主簽名<br><span class="indo">TANDA TANGAN MAJIKAN</span>
                     </div>
                     <div style="width: 30%;">
-                        <hr style="border-top: 1px solid #000;">
+                        <hr style="border-top: 1px solid #000; margin-bottom: 2px;">
                         業務經理簽名<br><span class="indo">TANDA TANGAN SALES</span>
                     </div>
                     <div style="width: 30%;">
