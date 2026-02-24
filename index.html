@@ -21,15 +21,15 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        /* 表頭彈性排版設計：解決重疊與擠壓問題 */
+        /* 表頭彈性排版設計 */
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .header-spacer {
-            width: 120px; /* 佔位用，確保標題完美置中 */
+            width: 120px;
         }
         .header-center {
             text-align: center;
@@ -42,7 +42,7 @@
         }
         .header-center h2 {
             font-size: 17px;
-            margin: 5px 0 0 0;
+            margin: 4px 0 0 0;
         }
         .header-right {
             width: 120px;
@@ -51,7 +51,7 @@
             font-size: 14px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
         }
 
         table {
@@ -61,9 +61,9 @@
         }
         th, td {
             border: 1px solid #000;
-            padding: 5px 8px;
+            padding: 4px 6px;
             vertical-align: top;
-            line-height: 1.35;
+            line-height: 1.3;
         }
         .section-title {
             background-color: #e6e6e6;
@@ -81,7 +81,7 @@
             width: 80px;
             font-family: inherit;
             font-size: 13px;
-            padding: 2px;
+            padding: 1px;
             background: transparent;
         }
         input[type="text"].long-input {
@@ -90,12 +90,12 @@
         label {
             display: inline-flex;
             align-items: center;
-            margin-right: 10px;
+            margin-right: 8px;
             cursor: pointer;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         input[type="checkbox"] {
-            margin-right: 4px;
+            margin-right: 3px;
             cursor: pointer;
         }
         .red-text {
@@ -113,13 +113,18 @@
             font-weight: bold;
             border: none;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
-        /* 列印專屬設定 - 強制單頁滿版微調 */
+        /* 區塊間距微調，取代原本的 <br> 換行 */
+        .group-spacing {
+            margin-top: 6px;
+        }
+        
+        /* 列印專屬設定 - 極限單頁滿版微調 */
         @page {
             size: A4 portrait;
-            margin: 5mm; /* 進一步縮小紙張邊界，爭取底部空間 */
+            margin: 3mm; /* 極限紙張邊界 */
         }
         @media print {
             body { 
@@ -135,20 +140,23 @@
             .btn-print { 
                 display: none; 
             }
-            .header-container { margin-bottom: 6px; }
-            .header-center h1 { font-size: 17px; margin: 0; }
-            .header-center h2 { font-size: 14px; margin: 3px 0 0 0; }
+            .header-container { margin-bottom: 4px; }
+            .header-center h1 { font-size: 16px; margin: 0; }
+            .header-center h2 { font-size: 13px; margin: 2px 0 0 0; }
             th, td { 
-                padding: 2px 4px; /* 極致緊縮表格內距 */
-                line-height: 1.15; /* 進一步緊縮行高 */
+                padding: 1px 3px; /* 極限緊縮表格內距 */
+                line-height: 1.1; /* 極限緊縮行高 */
             }
             label { margin-bottom: 0px; }
-            .indo { font-size: 9px; color: #333; } 
+            .indo { font-size: 9px; color: #333; line-height: 1.1; } 
             input[type="text"], input[type="number"] { 
                 border-bottom: 1px solid #000; 
                 font-size: 11px;
                 padding: 0px;
-                height: 13px;
+                height: 12px;
+            }
+            .group-spacing {
+                margin-top: 3px; /* 列印時進一步縮小區塊間距 */
             }
         }
     </style>
@@ -193,9 +201,11 @@
                 與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 150px;"><br>
                 與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
                 房屋共 <input type="text" style="width: 40px;"> 層 Lantai，共 <input type="text" style="width: 40px;"> 坪 Luas<br>
-                <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
-                老年人 ORANG TUA <input type="text" style="width: 30px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 30px;"> 人<br>
-                成年人 DEWASA <input type="text" style="width: 30px;"> 人，嬰兒 BAYI <input type="text" style="width: 30px;"> 歲/BULAN <input type="text" style="width: 30px;"> 人
+                <div class="group-spacing">
+                    <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
+                    老年人 ORANG TUA <input type="text" style="width: 30px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 30px;"> 人<br>
+                    成年人 DEWASA <input type="text" style="width: 30px;"> 人，嬰兒 BAYI <input type="text" style="width: 30px;"> 歲/BULAN <input type="text" style="width: 30px;"> 人
+                </div>
             </td>
             <td colspan="2">
                 姓名 NAMA：<input type="text" class="long-input"><br>
@@ -203,8 +213,10 @@
                 年齡 UMUR：<input type="text" style="width: 40px;"> 歲 THN<br>
                 配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
                 身高：<input type="text" style="width: 40px;"> CM　體重：<input type="text" style="width: 40px;"> KG<br>
-                <strong>使用語言 BAHASA：</strong><br>
-                <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+                <div class="group-spacing">
+                    <strong>使用語言 BAHASA：</strong><br>
+                    <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+                </div>
             </td>
         </tr>
 
@@ -261,13 +273,15 @@
                 <label><input type="checkbox"> 按摩、陪伴病人 Memijit、Menemani Pasien</label><br>
                 <label><input type="checkbox"> 協助翻身拍背 Bantu balik badan tepuk punggung</label><br>
                 <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label>
-                <br><br>
-                <strong>☆照顧小孩、嬰兒 / JAGA ANAK KECIL、BAYI</strong><br>
-                <label><input type="checkbox"> 換尿片 Ganti Pampers</label> <label><input type="checkbox"> 洗澡 Mandi</label><br>
-                <label><input type="checkbox"> 餵三餐 Kasih susu/Makan</label> <label><input type="checkbox"> 要抱 Gendong</label><br>
-                <label><input type="checkbox"> 伴讀及遊戲 Tema Belajar main</label><br>
-                <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label><br>
-                <label><input type="checkbox"> 需要同房同床 Satu kamar seranjang</label>
+                
+                <div class="group-spacing">
+                    <strong>☆照顧小孩、嬰兒 / JAGA ANAK KECIL、BAYI</strong><br>
+                    <label><input type="checkbox"> 換尿片 Ganti Pampers</label> <label><input type="checkbox"> 洗澡 Mandi</label><br>
+                    <label><input type="checkbox"> 餵三餐 Kasih susu/Makan</label> <label><input type="checkbox"> 要抱 Gendong</label><br>
+                    <label><input type="checkbox"> 伴讀及遊戲 Tema Belajar main</label><br>
+                    <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label><br>
+                    <label><input type="checkbox"> 需要同房同床 Satu kamar seranjang</label>
+                </div>
             </td>
             <td colspan="2">
                 <strong>☆家庭清潔工作 / BERSIH RUMAH</strong><br>
@@ -282,13 +296,15 @@
                 <label><input type="checkbox"> 園藝 Urus Taman</label>
                 <label><input type="checkbox"> 垃圾處理 Buang Sampah</label><br>
                 <label><input type="checkbox"> 其他家事 Pekerj Aan Lainnya</label>
-                <br><br>
-                <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
-                １．年齡 UMUR <input type="text" style="width: 30px;"> 歲 THN<br>
-                ２．身高 Tinggi <input type="text" style="width: 30px;"> cm　體重 Berat <input type="text" style="width: 30px;"> kg<br>
-                ３．婚姻 STATUS：<br>
-                　<label><input type="checkbox"> 已婚</label> <label><input type="checkbox"> 未婚</label> <label><input type="checkbox"> 離婚</label> <label><input type="checkbox"> 鰥寡</label><br>
-                ４．小孩 Anak kecil：<label><input type="checkbox"> 有 Ada</label>　<label><input type="checkbox"> 沒有 Tidak ada</label>
+                
+                <div class="group-spacing">
+                    <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
+                    １．年齡 UMUR <input type="text" style="width: 30px;"> 歲 THN<br>
+                    ２．身高 Tinggi <input type="text" style="width: 30px;"> cm　體重 Berat <input type="text" style="width: 30px;"> kg<br>
+                    ３．婚姻 STATUS：<br>
+                    　<label><input type="checkbox"> 已婚</label> <label><input type="checkbox"> 未婚</label> <label><input type="checkbox"> 離婚</label> <label><input type="checkbox"> 鰥寡</label><br>
+                    ４．小孩 Anak kecil：<label><input type="checkbox"> 有 Ada</label>　<label><input type="checkbox"> 沒有 Tidak ada</label>
+                </div>
             </td>
         </tr>
 
@@ -298,12 +314,14 @@
                 １．<input type="text" class="long-input"><br>
                 ２．<input type="text" class="long-input"><br>
                 ３．<input type="text" class="long-input"><br>
-                <br>
-                <strong>●確工女傭編號／日期●</strong><br>
-                <input type="text" style="width: 80px;"> / <input type="text" style="width: 30px;"> / <input type="text" style="width: 30px;"><br>
-                <br>
-                來台工作地點 Tempat kerja di Taiwan：<br>
-                <input type="text" class="long-input">
+                <div class="group-spacing">
+                    <strong>●確工女傭編號／日期●</strong><br>
+                    <input type="text" style="width: 80px;"> / <input type="text" style="width: 30px;"> / <input type="text" style="width: 30px;"><br>
+                </div>
+                <div class="group-spacing">
+                    來台工作地點 Tempat kerja di Taiwan：<br>
+                    <input type="text" class="long-input">
+                </div>
             </td>
             <td colspan="2" class="red-text">
                 ●外勞工作內容說明 / PEKERJAAN KHUSUS●<br>
@@ -320,8 +338,8 @@
             <td colspan="4">
                 <strong>●女傭請詳閱工作後內容簽名並押指紋●</strong><br>
                 <span class="indo">Pembantu rumah harap membaca konten pasca kerja dengan cermat, menandatangani dan mengambil sidik jari Anda</span>
-                <br><br><br>
-                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 10px;">
+                
+                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 25px;">
                     <div style="width: 30%;">
                         <hr style="border-top: 1px solid #000; margin-bottom: 2px;">
                         雇主簽名<br><span class="indo">TANDA TANGAN MAJIKAN</span>
