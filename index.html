@@ -3,254 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>印尼勞工看護工詳情表 DAFTAR PEKERJAAN</title>
+    <title>印尼勞工看護工詳情表</title>
     <style>
         body {
             font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
+            background-color: #f0f2f5;
+            color: #000;
+            font-size: 13px;
+            margin: 0;
             padding: 20px;
         }
-        .container {
-            max-width: 900px;
+        .page-container {
+            max-width: 1000px;
             margin: 0 auto;
             background: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        h1 {
+        .header {
             text-align: center;
-            font-size: 24px;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            position: relative;
         }
-        .subtitle {
-            text-align: center;
-            font-size: 16px;
-            color: #555;
-            margin-top: -15px;
-            margin-bottom: 20px;
+        .header h1 {
+            font-size: 22px;
+            margin: 5px 0;
+            letter-spacing: 1px;
         }
-        h2 {
+        .header h2 {
             font-size: 18px;
-            background-color: #e9ecef;
-            padding: 8px 12px;
-            border-left: 5px solid #0056b3;
-            margin-top: 20px;
+            margin: 5px 0;
         }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: inline-block;
+        .job-type {
+            position: absolute;
+            right: 0;
+            top: 0;
             font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            vertical-align: top;
+            line-height: 1.4;
+        }
+        .section-title {
+            background-color: #e6e6e6;
+            font-weight: bold;
+            text-align: center;
         }
         .indo {
-            font-size: 12px;
-            color: #666;
-            font-weight: normal;
+            font-size: 11px;
+            color: #555;
             display: block;
         }
         input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .inline-input {
-            width: auto;
-            display: inline-block;
             border: none;
-            border-bottom: 1px solid #000;
-            border-radius: 0;
-            padding: 2px 5px;
+            border-bottom: 1px solid #666;
+            width: 80px;
+            font-family: inherit;
+            font-size: 13px;
+            padding: 2px;
+            background: transparent;
         }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
+        input[type="text"].long-input {
+            width: 80%;
         }
-        .checkbox-item {
-            display: flex;
+        label {
+            display: inline-flex;
             align-items: center;
+            margin-right: 10px;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 4px;
             cursor: pointer;
         }
-        .checkbox-item input {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
+        .red-text {
+            color: red;
+            font-weight: bold;
         }
         .btn-print {
             display: block;
             width: 100%;
-            padding: 15px;
-            background-color: #0056b3;
+            padding: 12px;
+            background-color: #28a745;
             color: white;
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
+            font-weight: bold;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
-            margin-top: 30px;
+            margin-top: 20px;
         }
-        .btn-print:hover {
-            background-color: #004494;
-        }
-        .signature-box {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            text-align: center;
-        }
-        .signature-line {
-            border-top: 1px solid #000;
-            margin-top: 50px;
-            padding-top: 5px;
-        }
-
-        /* 列印時的樣式設定，讓產出的 PDF 乾淨漂亮 */
+        
         @media print {
-            body {
-                background-color: white;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-                padding: 0;
-                max-width: 100%;
-            }
-            .btn-print {
-                display: none; /* 列印時隱藏按鈕 */
-            }
-            input[type="text"], input[type="number"] {
-                border: none;
-                border-bottom: 1px solid #000;
-                border-radius: 0;
-                padding: 2px;
-            }
+            body { background: #fff; padding: 0; font-size: 12px; }
+            .page-container { box-shadow: none; padding: 0; max-width: 100%; }
+            .btn-print { display: none; }
+            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; }
+            .indo { color: #333; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>印尼勞工看護工詳情表</h1>
-    <div class="subtitle">DAFTAR PEKERJAAN</div>
-
-    <div class="form-group checkbox-group">
-        <label>申請類別：</label>
-        <label class="checkbox-item"><input type="checkbox"> 初次</label>
-        <label class="checkbox-item"><input type="checkbox"> 重招</label>
-        <label class="checkbox-item"><input type="checkbox"> 遞補</label>
-    </div>
-
-    <div class="grid-2">
-        <div>
-            <h2>申請人背景資料 <span class="indo">DATA MAJIKAN</span></h2>
-            <div class="form-group">
-                <label>姓名 <span class="indo">NAMA</span></label>
-                <input type="text">
-            </div>
-            <div class="checkbox-group">
-                <label class="checkbox-item"><input type="checkbox"> 男 L</label>
-                <label class="checkbox-item"><input type="checkbox"> 女 P</label>
-            </div>
-            <div class="form-group">
-                <label>與被照顧人關係 <span class="indo">HUBUNGAN DGN PASIEN</span></label>
-                <input type="text">
-            </div>
-        </div>
-
-        <div>
-            <h2>被照顧人背景資料 <span class="indo">DATA PASIEN</span></h2>
-            <div class="form-group">
-                <label>姓名 <span class="indo">NAMA</span></label>
-                <input type="text">
-            </div>
-            <div class="checkbox-group">
-                <label class="checkbox-item"><input type="checkbox"> 男 L</label>
-                <label class="checkbox-item"><input type="checkbox"> 女 P</label>
-            </div>
-            <div class="form-group">
-                <label>年齡 <span class="indo">UMUR</span></label>
-                <input type="text" placeholder="歲 THN">
-            </div>
+<div class="page-container">
+    <div class="header">
+        <h1>聯捷人力仲介有限公司  Linkjet Manpower CO., LTD</h1>
+        <h2>印尼勞工看護工詳情表 DAFTAR PEKERJAAN</h2>
+        <div class="job-type">
+            <label><input type="checkbox"> 家庭幫傭</label>
+            <label><input type="checkbox"> 看護工</label>
         </div>
     </div>
 
-    <h2>工作內容 <span class="indo">DAFTAR PEKERJAAN</span></h2>
-    <div class="grid-2">
-        <div>
-            <label>☆照顧病人 <span class="indo">JAGA ORANG SAKIT</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 協助復健 <span class="indo">Re Check Up</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 抽痰 <span class="indo">Sedot Dahak</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 餵食 <span class="indo">Suapin Manan</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 洗澡 <span class="indo">Bantu Mandi</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 協助量血糖 <span class="indo">Bantu ukur gula darah</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 協助鼻胃管 <span class="indo">Bantu kasih makan lewat selang</span></label>
-        </div>
-        <div>
-            <label>☆家庭清潔工作 <span class="indo">BERSIH RUMAH</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 煮食三餐 <span class="indo">Masak 3 Kali Sehari</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 清潔打掃 <span class="indo">BERSIH2</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 洗衣服 <span class="indo">Cuci Baju</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 垃圾處理 <span class="indo">Buang Sampah</span></label>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <td colspan="4">
+                申請類別：
+                <label><input type="checkbox"> 初次</label>
+                <label><input type="checkbox"> 重招</label>
+                <label><input type="checkbox"> 遞補</label>
+                <span style="margin-left: 20px;">原外勞出境日： <input type="text" style="width: 40px;"> 年 <input type="text" style="width: 30px;"> 月 <input type="text" style="width: 30px;"> 日</span>
+                <span style="margin-left: 20px;">剩餘工期： <input type="text" style="width: 40px;"> 年 <input type="text" style="width: 30px;"> 月（含展延）</span>
+            </td>
+        </tr>
 
-    <h2>病因與病情狀況 <span class="indo">PENYAKIT / KEADAAN PASIEN</span></h2>
-    <div class="grid-2">
-        <div>
-            <label class="checkbox-item"><input type="checkbox"> 中風 <span class="indo">Stroke</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 帕金森 <span class="indo">parkinson</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 阿滋海默 <span class="indo">Alzheimer</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 糖尿病 <span class="indo">Diabetes</span></label>
-            <label class="checkbox-item"><input type="checkbox"> 癱瘓程度 <span class="indo">Tingkat kelumpuhan</span></label>
-        </div>
-        <div>
-            <label>排便能力 <span class="indo">Kemampuan buang air besar：</span></label>
-            <div class="checkbox-group">
-                <label class="checkbox-item"><input type="checkbox"> 正常 <span class="indo">Normal</span></label>
-                <label class="checkbox-item"><input type="checkbox"> 尿布 <span class="indo">Popok</span></label>
-                <label class="checkbox-item"><input type="checkbox"> 便盆椅 <span class="indo">Ursi toilet</span></label>
-            </div>
-        </div>
-    </div>
+        <tr>
+            <td colspan="2" class="section-title">申請人背景資料 / DATA MAJIKAN</td>
+            <td colspan="2" class="section-title">被照顧人背景資料 / DATA PASIEN</td>
+        </tr>
 
-    <h2>外勞工作內容說明 <span class="indo">PEKERJAAN KHUSUS</span></h2>
-    <p style="color: red; font-weight: bold;">
-        ★為確保被照顧者的人身安全及被照顧品質，工人上班時間中禁止使用手機上網、講電話、視訊、戴耳機聽音樂！<br>
-        <span class="indo" style="color: #666;">Untuk memastikan keselamatan pribadi orang yang dirawat dan kualitas layanan, pekerja dilarang menggunakan ponsel untuk menjelajahi Internet, berbicara di telepon, melakukan obrolan video, atau memakai headphone untuk mendengarkan musik selama jam kerja!</span>
-    </p>
+        <tr>
+            <td colspan="2">
+                姓名 NAMA：<input type="text" class="long-input"><br>
+                <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text"><br>
+                與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
+                房屋共 <input type="text" style="width: 40px;"> 層 Lantai，共 <input type="text" style="width: 40px;"> 坪 Luas<br>
+                <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
+                老年人 ORANG TUA <input type="text" style="width: 30px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 30px;"> 人<br>
+                成年人 DEWASA <input type="text" style="width: 30px;"> 人，嬰兒 BAYI <input type="text" style="width: 30px;"> 歲/BULAN <input type="text" style="width: 30px;"> 人
+            </td>
+            <td colspan="2">
+                姓名 NAMA：<input type="text" class="long-input"><br>
+                <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                年齡 UMUR：<input type="text" style="width: 40px;"> 歲 THN<br>
+                配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
+                身高：<input type="text" style="width: 40px;"> CM　體重：<input type="text" style="width: 40px;"> KG<br>
+                <strong>使用語言 BAHASA：</strong><br>
+                <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+            </td>
+        </tr>
 
-    <div class="signature-box">
-        <div>
-            <div class="signature-line">雇主簽名 <br><span class="indo">TANDA TANGAN MAJIKAN</span></div>
-        </div>
-        <div>
-            <div class="signature-line">業務經理簽名 <br><span class="indo">TANDA TANGAN SALES</span></div>
-        </div>
-        <div>
-            <div class="signature-line">女傭簽名與指紋 <br><span class="indo">Tanda tangan pembantu</span></div>
-        </div>
-    </div>
+        <tr>
+            <td colspan="2" class="section-title">病因 / PENYAKIT</td>
+            <td colspan="2" class="section-title">病情狀況 / KEADAAN PASIEN</td>
+        </tr>
 
-    <button class="btn-print" onclick="window.print()">儲存 / 匯出成 PDF (Cetak PDF)</button>
+        <tr>
+            <td colspan="2">
+                <label><input type="checkbox"> 中風 Stroke</label><br>
+                <label><input type="checkbox"> 帕金森 parkinson</label><br>
+                <label><input type="checkbox"> 阿滋海默 Alzheimer</label><br>
+                <label><input type="checkbox"> 糖尿病 Diabetes</label><br>
+                <label><input type="checkbox"> 植物人 Keadaan vegetatif</label><br>
+                <label><input type="checkbox"> 精神病 Penyakit kejiwaan</label><br>
+                <label><input type="checkbox"> 智能障礙 Cacat intelektual</label><br>
+                <label><input type="checkbox"> 癌症 Kanker：<input type="text" style="width: 50px;"> 癌 <input type="text" style="width: 30px;"> 期 Stadium kanker</label><br>
+                <label><input type="checkbox"> 失智 Demensia：</label><br>
+                　<label><input type="checkbox"> 輕度 Ringan</label> <label><input type="checkbox"> 中度 Sedang</label> <label><input type="checkbox"> 重度 Berat</label>
+            </td>
+            <td colspan="2">
+                <label><input type="checkbox"> 癱瘓程度 Tingkat kelumpuhan：</label><br>
+                　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label><br>
+                　<label><input type="checkbox"> 頸椎以下癱瘓</label> <label><input type="checkbox"> 全身癱瘓</label><br>
+                <label><input type="checkbox"> 行動能力 Mobilitas：</label><br>
+                　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label><br>
+                　<label><input type="checkbox"> 無法行走,需抱、移位</label><br>
+                <label><input type="checkbox"> 意識狀態 Keadaan sadar：</label><br>
+                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 只能簡單對話</label><br>
+                　<label><input type="checkbox"> 有意識但無法表達</label> <label><input type="checkbox"> 無意識</label><br>
+                <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
+                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 軟便劑</label><br>
+                　<label><input type="checkbox"> 需協助挖大便</label><br>
+                <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
+                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 尿袋</label><br>
+                　<label><input type="checkbox"> 需協助使用導尿管</label>
+            </td>
+        </tr>
 
+        <tr>
+            <td colspan="4" class="section-title">工作內容 / DAFTAR PEKERJAAN</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <strong>☆照顧病人 / JAGA ORANG SAKIT</strong><br>
+                <label><input type="checkbox"> 協助復健 Re Check Up</label> <label><input type="checkbox"> 餵食 Suapin Manan</label><br>
+                <label><input type="checkbox"> 抽痰 Sedot Dahak</label> <label><input type="checkbox"> 要抱 Gendong/Augkat</label><br>
+                <label><input type="checkbox"> 夜間照顧 Jaga Malam Hari</label> <label><input type="checkbox"> 洗澡 Bantu Mandi</label><br>
+                <label><input type="checkbox"> 協助打胰島素 Bantu menyuntik insulin</label><br>
+                <label><input type="checkbox"> 協助量血糖 Bantu ukur gula darah</label><br>
+                <label><input type="checkbox"> 協助鼻胃管 Bantu kasih makan lewat selang</label><br>
+                <label><input type="checkbox"> 按摩、陪伴病人 Memijit、Menemani Pasien</label><br>
+                <label><input type="checkbox"> 協助翻身拍背 Bantu balik badan tepuk punggung</label><br>
+                <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label>
+                <br><br>
+                <strong>☆照顧小孩、嬰兒 / JAGA ANAK KECIL、BAYI</strong><br>
+                <label><input type="checkbox"> 換尿片 Ganti Pampers</label> <label><input type="checkbox"> 洗澡 Mandi</label><br>
+                <label><input type="checkbox"> 餵三餐 Kasih susu/Makan</label> <label><input type="checkbox"> 要抱 Gendong</label><br>
+                <label><input type="checkbox"> 伴讀及遊戲 Tema Belajar main</label><br>
+                <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label><br>
+                <label><input type="checkbox"> 需要同房同床 Satu kamar seranjang</label>
+            </td>
+            <td colspan="2">
+                <strong>☆家庭清潔工作 / BERSIH RUMAH</strong><br>
+                <label><input type="checkbox"> 煮食三餐 Masak 3 Kali Sehari</label><br>
+                <label><input type="checkbox"> 清潔打掃 BERSIH2</label><br>
+                <label><input type="checkbox"> 洗衣服 Cuci Baju</label><br>
+                <label><input type="checkbox"> 燙衣服 Gosok Baju</label><br>
+                <label><input type="checkbox"> 洗車 Cuci Mobil</label><br>
+                <label><input type="checkbox"> 照顧寵物 Urus Binatang</label><br>
+                <label><input type="checkbox"> 買菜 Beli Sayur</label><br>
+                <label><input type="checkbox"> 做點心 Buat Kue</label><br>
+                <label><input type="checkbox"> 園藝 Urus Taman</label><br>
+                <label><input type="checkbox"> 垃圾處理 Buang Sampah</label><br>
+                <label><input type="checkbox"> 其他家事 Pekerj Aan Lainnya</label>
+                <br><br>
+                <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
+                １．年齡 UMUR <input type="text" style="width: 30px;"> 歲 THN<br>
+                ２．身高 Tinggi <input type="text" style="width: 40px;"> cm　體重 Berat <input type="text" style="width: 40px;"> kg<br>
+                ３．婚姻 STATUS：<br>
+                　<label><input type="checkbox"> 已婚</label> <label><input type="checkbox"> 未婚</label> <label><input type="checkbox"> 離婚</label> <label><input type="checkbox"> 鰥寡</label><br>
+                ４．小孩 Anak kecil：<label><input type="checkbox"> 有 Ada</label>　<label><input type="checkbox"> 沒有 Tidak ada</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <strong>●挑選女傭編號 PILIH NO INDUK●</strong><br>
+                １．<input type="text" class="long-input"><br>
+                ２．<input type="text" class="long-input"><br>
+                ３．<input type="text" class="long-input"><br>
+                <br>
+                <strong>●確工女傭編號／日期●</strong><br>
+                <input type="text" style="width: 80px;"> / <input type="text" style="width: 30px;"> / <input type="text" style="width: 30px;"><br>
+                <br>
+                來台工作地點 Tempat kerja di Taiwan：<br>
+                <input type="text" class="long-input">
+            </td>
+            <td colspan="2" class="red-text">
+                ●外勞工作內容說明 / PEKERJAAN KHUSUS●<br>
+                ★會以願意三年不休假為優先考慮聘僱！<br>
+                <span class="indo red-text">Diutamakan mereka yang bersedia tidak libur selama tiga tahun!</span><br>
+                ★為確保被照顧者的人身安全及被照顧品質,工人上班時間中禁止使用手機上網、講電話、視訊、戴耳機聽音樂！<br>
+                <span class="indo red-text">Untuk memastikan keselamatan pribadi orang yang dirawat dan kualitas layanan, pekerja dilarang menggunakan ponsel untuk menjelajahi Internet, berbicara di telepon, melakukan obrolan video, atau memakai headphone untuk mendengarkan musik selama jam kerja!</span><br>
+                ★請工人確定可以接受這個工作內容再來台灣工作,確定後來台灣一契約是三年（不能換工作、不能換僱主)！<br>
+                <span class="indo red-text">Pastikan pekerja dapat menerima konten pekerjaan sebelum mulai bekerja di Taiwan. Pastikan kontrak di Taiwan berlaku selama tiga tahun (Anda tidak dapat berganti pekerjaan atau majikan)!</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4">
+                <strong>●女傭請詳閱工作後內容簽名並押指紋●</strong><br>
+                <span class="indo">Pembantu rumah harap membaca konten pasca kerja dengan cermat, menandatangani dan mengambil sidik jari Anda</span>
+                <br><br><br><br>
+                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 20px;">
+                    <div style="width: 30%;">
+                        <hr style="border-top: 1px solid #000;">
+                        雇主簽名<br><span class="indo">TANDA TANGAN MAJIKAN</span>
+                    </div>
+                    <div style="width: 30%;">
+                        <hr style="border-top: 1px solid #000;">
+                        業務經理簽名<br><span class="indo">TANDA TANGAN SALES</span>
+                    </div>
+                    <div style="width: 30%;">
+                        填表日期：<input type="text" style="width: 30px;"> / <input type="text" style="width: 30px;"> / <input type="text" style="width: 30px;"><br>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <button class="btn-print" onclick="window.print()">儲存 / 匯出成 PDF</button>
 </div>
 
 </body>
