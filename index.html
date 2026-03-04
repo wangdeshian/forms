@@ -64,11 +64,29 @@
             vertical-align: top;
             line-height: 1.3;
         }
+        
+        /* 新增：為包裝標題與內容的格子去除預設邊距 */
+        .cell-no-pad {
+            padding: 0 !important;
+        }
+        /* 更新：將標題樣式改為區塊設定，確保印出時有底線與底色 */
         .section-title {
             background-color: #e6e6e6;
             font-weight: bold;
             text-align: center;
+            padding: 4px 6px;
+            border-bottom: 1px solid #000;
         }
+        .cell-content {
+            padding: 4px 6px;
+        }
+        /* 工作內容的獨立標題微調 */
+        .section-title-full {
+            background-color: #e6e6e6;
+            font-weight: bold;
+            text-align: center;
+        }
+
         .indo {
             font-size: 11px;
             color: #555;
@@ -130,116 +148,62 @@
             width: 30%;
         }
 
-        /* 📱 手機版專屬響應式設定 (螢幕寬度小於 768px 時觸發) */
+        /* 📱 手機版專屬響應式設定 */
         @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .page-container {
-                padding: 15px;
-            }
-            /* 將表頭改為垂直置中排列 */
-            .header-container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
+            body { padding: 10px; }
+            .page-container { padding: 15px; }
+            .header-container { flex-direction: column; align-items: center; text-align: center; }
             .header-spacer { display: none; }
-            .header-right {
-                width: 100%;
-                flex-direction: row;
-                justify-content: center;
-                gap: 20px;
-                margin-top: 10px;
-            }
-            /* 破解表格，將每個儲存格變成上下堆疊的卡片 */
-            table, thead, tbody, th, td, tr {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            th, td {
-                border: none;
-                border-bottom: 1px solid #ddd;
-                padding: 12px 5px;
-            }
-            .section-title {
+            .header-right { width: 100%; flex-direction: row; justify-content: center; gap: 20px; margin-top: 10px; }
+            table, thead, tbody, th, td, tr { display: block; width: 100%; box-sizing: border-box; }
+            
+            /* 手機版儲存格分隔線 */
+            th, td { border: none; border-bottom: 1px solid #ddd; padding: 12px 5px; }
+            .cell-no-pad { border-bottom: none; } /* 外層不加線，讓內層內容來加 */
+            
+            /* 手機版標題呈現藍色圓角設計 */
+            .section-title, .section-title-full {
                 background-color: #0056b3;
                 color: #fff;
-                margin-top: 10px;
                 border-radius: 4px;
+                border-bottom: none;
+                margin-bottom: 5px;
             }
-            .section-title .indo { color: #e0e0e0; }
-            /* 放大觸控元件，防止蘋果設備自動縮放螢幕 */
-            input[type="text"], input[type="number"] {
-                font-size: 16px;
-                padding: 4px;
-                margin-top: 4px;
-                margin-bottom: 4px;
-            }
-            input[type="checkbox"] {
-                transform: scale(1.4);
-                margin-right: 8px;
-            }
-            label {
-                padding: 8px 0;
-                margin-right: 15px;
-            }
-            .signature-box {
-                flex-direction: column;
-                gap: 30px;
-            }
-            .signature-column {
-                width: 100%;
-            }
+            .section-title .indo, .section-title-full .indo { color: #e0e0e0; }
+            .cell-content { padding: 5px 5px 15px 5px; border-bottom: 1px solid #ddd; }
+
+            input[type="text"], input[type="number"] { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
+            input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; }
+            label { padding: 8px 0; margin-right: 15px; }
+            .signature-box { flex-direction: column; gap: 30px; }
+            .signature-column { width: 100%; }
         }
         
-        /* 🖨️ 終極列印設定：確保完美單頁輸出，不受手機版設定干擾 */
-        @page {
-            size: A4 portrait;
-            margin: 3mm; 
-        }
+        /* 🖨️ 終極列印設定：維持完美 A4 滿版單頁 */
+        @page { size: A4 portrait; margin: 3mm; }
         @media print {
-            body { 
-                background: #fff; 
-                padding: 0; 
-                font-size: 10.5px; 
-                zoom: 0.95; 
-            }
-            .page-container { 
-                box-shadow: none; 
-                padding: 0; 
-                max-width: 100%; 
-            }
-            .btn-print { 
-                display: none; 
-            }
+            body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; }
+            .page-container { box-shadow: none; padding: 0; max-width: 100%; }
+            .btn-print { display: none; }
             .header-container { margin-bottom: 2px; }
             .header-center h1 { font-size: 15px; margin: 0; }
             .header-center h2 { font-size: 12px; margin: 2px 0 0 0; }
-            table, thead, tbody, th, td, tr {
-                display: table; /* 列印時強制切回表格模式 */
-                display: table-cell;
-            }
+            table, thead, tbody, th, td, tr { display: table; display: table-cell; }
             tr { display: table-row; }
             tbody { display: table-row-group; }
-            table { display: table; width: 100%; }
-            th, td { 
-                border: 1px solid #000;
-                padding: 1px 2px; 
-                line-height: 1.05; 
-            }
+            table { display: table; width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #000; padding: 1px 2px; line-height: 1.05; }
+            
+            /* 列印時內層無邊距設定 */
+            .cell-no-pad { padding: 0 !important; }
+            .section-title { padding: 1px 2px; border-bottom: 1px solid #000; background-color: #e6e6e6 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .cell-content { padding: 1px 2px; }
+            .section-title-full { background-color: #e6e6e6 !important; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
             label { margin-bottom: 0px; margin-right: 6px; padding: 0; }
             input[type="checkbox"] { transform: scale(1); margin-right: 3px; }
-            .section-title { background-color: #e6e6e6; color: #000; border-radius: 0; margin-top: 0;}
             .indo { font-size: 8.5px; color: #333; line-height: 1.1; } 
-            input[type="text"], input[type="number"] { 
-                border-bottom: 1px solid #000; 
-                font-size: 10.5px;
-                padding: 0px;
-                height: 11px;
-                margin: 0;
-            }
+            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; height: 11px; margin: 0; }
             .group-spacing { margin-top: 2px; }
             .signature-box { flex-direction: row; gap: 0; }
             .signature-column { width: 30%; }
@@ -275,75 +239,77 @@
         </tr>
 
         <tr>
-            <td colspan="2" class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></td>
-            <td colspan="2" class="section-title">被照顧人背景資料 <span class="indo">DATA PASIEN</span></td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                姓名 NAMA：<input type="text" class="long-input"><br>
-                <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
-                與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
-                與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
-                房屋共 <input type="text" style="width: 30px;"> 層 Lantai，共 <input type="text" style="width: 30px;"> 坪 Luas<br>
-                <div class="group-spacing">
-                    <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
-                    老年人 ORANG TUA <input type="text" style="width: 25px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 25px;"> 人<br>
-                    成年人 DEWASA <input type="text" style="width: 25px;"> 人，嬰兒 BAYI <input type="text" style="width: 25px;"> 歲/BULAN <input type="text" style="width: 25px;"> 人
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></div>
+                <div class="cell-content">
+                    姓名 NAMA：<input type="text" class="long-input"><br>
+                    <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                    與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
+                    與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
+                    房屋共 <input type="text" style="width: 30px;"> 層 Lantai，共 <input type="text" style="width: 30px;"> 坪 Luas<br>
+                    <div class="group-spacing">
+                        <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
+                        老年人 ORANG TUA <input type="text" style="width: 25px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 25px;"> 人<br>
+                        成年人 DEWASA <input type="text" style="width: 25px;"> 人，嬰兒 BAYI <input type="text" style="width: 25px;"> 歲/BULAN <input type="text" style="width: 25px;"> 人
+                    </div>
                 </div>
             </td>
-            <td colspan="2">
-                姓名 NAMA：<input type="text" class="long-input"><br>
-                <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
-                年齡 UMUR：<input type="text" style="width: 30px;"> 歲 THN<br>
-                配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
-                身高：<input type="text" style="width: 30px;"> CM　體重：<input type="text" style="width: 30px;"> KG<br>
-                <div class="group-spacing">
-                    <strong>使用語言 BAHASA：</strong><br>
-                    <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">被照顧人背景資料 <span class="indo">DATA PASIEN</span></div>
+                <div class="cell-content">
+                    姓名 NAMA：<input type="text" class="long-input"><br>
+                    <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                    年齡 UMUR：<input type="text" style="width: 30px;"> 歲 THN<br>
+                    配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
+                    身高：<input type="text" style="width: 30px;"> CM　體重：<input type="text" style="width: 30px;"> KG<br>
+                    <div class="group-spacing">
+                        <strong>使用語言 BAHASA：</strong><br>
+                        <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+                    </div>
                 </div>
             </td>
         </tr>
 
         <tr>
-            <td colspan="2" class="section-title">病因 <span class="indo">PENYAKIT</span></td>
-            <td colspan="2" class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></td>
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">病因 <span class="indo">PENYAKIT</span></div>
+                <div class="cell-content">
+                    <label><input type="checkbox"> 中風 Stroke</label><br>
+                    <label><input type="checkbox"> 帕金森 parkinson</label><br>
+                    <label><input type="checkbox"> 阿滋海默 Alzheimer</label><br>
+                    <label><input type="checkbox"> 糖尿病 Diabetes</label><br>
+                    <label><input type="checkbox"> 植物人 Keadaan vegetatif</label><br>
+                    <label><input type="checkbox"> 精神病 Penyakit kejiwaan</label><br>
+                    <label><input type="checkbox"> 智能障礙 Cacat intelektual</label><br>
+                    <label><input type="checkbox"> 癌症 Kanker：<input type="text" style="width: 40px;"> 癌 <input type="text" style="width: 25px;"> 期 Stadium kanker</label><br>
+                    <label><input type="checkbox"> 失智 Demensia：</label><br>
+                    　<label><input type="checkbox"> 輕度 Ringan</label> <label><input type="checkbox"> 中度 Sedang</label> <label><input type="checkbox"> 重度 Berat</label>
+                </div>
+            </td>
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></div>
+                <div class="cell-content">
+                    <label><input type="checkbox"> 癱瘓程度 Tingkat kelumpuhan：</label><br>
+                    　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label> 
+                    　<label><input type="checkbox"> 頸椎以下癱瘓</label> <label><input type="checkbox"> 全身癱瘓</label><br>
+                    <label><input type="checkbox"> 行動能力 Mobilitas：</label><br>
+                    　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label> 
+                    　<label><input type="checkbox"> 無法行走,需抱、移位</label><br>
+                    <label><input type="checkbox"> 意識狀態 Keadaan sadar：</label><br>
+                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 只能簡單對話</label><br>
+                    　<label><input type="checkbox"> 有意識但無法表達</label> <label><input type="checkbox"> 無意識</label><br>
+                    <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
+                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 軟便劑</label><br>
+                    　<label><input type="checkbox"> 需協助挖大便</label><br>
+                    <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
+                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 尿袋</label><br>
+                    　<label><input type="checkbox"> 需協助使用導尿管</label>
+                </div>
+            </td>
         </tr>
 
         <tr>
-            <td colspan="2">
-                <label><input type="checkbox"> 中風 Stroke</label><br>
-                <label><input type="checkbox"> 帕金森 parkinson</label><br>
-                <label><input type="checkbox"> 阿滋海默 Alzheimer</label><br>
-                <label><input type="checkbox"> 糖尿病 Diabetes</label><br>
-                <label><input type="checkbox"> 植物人 Keadaan vegetatif</label><br>
-                <label><input type="checkbox"> 精神病 Penyakit kejiwaan</label><br>
-                <label><input type="checkbox"> 智能障礙 Cacat intelektual</label><br>
-                <label><input type="checkbox"> 癌症 Kanker：<input type="text" style="width: 40px;"> 癌 <input type="text" style="width: 25px;"> 期 Stadium kanker</label><br>
-                <label><input type="checkbox"> 失智 Demensia：</label><br>
-                　<label><input type="checkbox"> 輕度 Ringan</label> <label><input type="checkbox"> 中度 Sedang</label> <label><input type="checkbox"> 重度 Berat</label>
-            </td>
-            <td colspan="2">
-                <label><input type="checkbox"> 癱瘓程度 Tingkat kelumpuhan：</label><br>
-                　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label> 
-                　<label><input type="checkbox"> 頸椎以下癱瘓</label> <label><input type="checkbox"> 全身癱瘓</label><br>
-                <label><input type="checkbox"> 行動能力 Mobilitas：</label><br>
-                　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label> 
-                　<label><input type="checkbox"> 無法行走,需抱、移位</label><br>
-                <label><input type="checkbox"> 意識狀態 Keadaan sadar：</label><br>
-                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 只能簡單對話</label><br>
-                　<label><input type="checkbox"> 有意識但無法表達</label> <label><input type="checkbox"> 無意識</label><br>
-                <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
-                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 軟便劑</label><br>
-                　<label><input type="checkbox"> 需協助挖大便</label><br>
-                <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
-                　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 尿袋</label><br>
-                　<label><input type="checkbox"> 需協助使用導尿管</label>
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="4" class="section-title">工作內容 <span class="indo">DAFTAR PEKERJAAN</span></td>
+            <td colspan="4" class="section-title-full">工作內容 <span class="indo">DAFTAR PEKERJAAN</span></td>
         </tr>
 
         <tr>
