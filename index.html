@@ -28,7 +28,7 @@
             margin-bottom: 8px;
         }
         .header-spacer {
-            width: 120px;
+            width: 160px;
         }
         .header-center {
             text-align: center;
@@ -44,7 +44,7 @@
             margin: 4px 0 0 0;
         }
         .header-right {
-            width: 120px;
+            width: 160px;
             text-align: right;
             font-weight: bold;
             font-size: 14px;
@@ -65,11 +65,9 @@
             line-height: 1.3;
         }
         
-        /* 新增：為包裝標題與內容的格子去除預設邊距 */
         .cell-no-pad {
             padding: 0 !important;
         }
-        /* 更新：將標題樣式改為區塊設定，確保印出時有底線與底色 */
         .section-title {
             background-color: #e6e6e6;
             font-weight: bold;
@@ -80,18 +78,28 @@
         .cell-content {
             padding: 4px 6px;
         }
-        /* 工作內容的獨立標題微調 */
         .section-title-full {
             background-color: #e6e6e6;
             font-weight: bold;
             text-align: center;
         }
 
+        /* 標題下方的區塊級印尼文 */
         .indo {
             font-size: 11px;
             color: #555;
             display: block;
         }
+        
+        /* 新增：專門給選項使用的行內印尼文（省空間且美觀） */
+        .indo-inline {
+            font-size: 11px;
+            color: #666;
+            display: inline;
+            margin-left: 4px;
+            font-weight: normal;
+        }
+
         input[type="text"], input[type="number"] {
             border: none;
             border-bottom: 1px solid #666;
@@ -157,11 +165,9 @@
             .header-right { width: 100%; flex-direction: row; justify-content: center; gap: 20px; margin-top: 10px; }
             table, thead, tbody, th, td, tr { display: block; width: 100%; box-sizing: border-box; }
             
-            /* 手機版儲存格分隔線 */
             th, td { border: none; border-bottom: 1px solid #ddd; padding: 12px 5px; }
-            .cell-no-pad { border-bottom: none; } /* 外層不加線，讓內層內容來加 */
+            .cell-no-pad { border-bottom: none; } 
             
-            /* 手機版標題呈現藍色圓角設計 */
             .section-title, .section-title-full {
                 background-color: #0056b3;
                 color: #fff;
@@ -179,7 +185,7 @@
             .signature-column { width: 100%; }
         }
         
-        /* 🖨️ 終極列印設定：維持完美 A4 滿版單頁 */
+        /* 🖨️ 終極列印設定 */
         @page { size: A4 portrait; margin: 3mm; }
         @media print {
             body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; }
@@ -194,7 +200,6 @@
             table { display: table; width: 100%; border-collapse: collapse; }
             th, td { border: 1px solid #000; padding: 1px 2px; line-height: 1.05; }
             
-            /* 列印時內層無邊距設定 */
             .cell-no-pad { padding: 0 !important; }
             .section-title { padding: 1px 2px; border-bottom: 1px solid #000; background-color: #e6e6e6 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .cell-content { padding: 1px 2px; }
@@ -203,6 +208,10 @@
             label { margin-bottom: 0px; margin-right: 6px; padding: 0; }
             input[type="checkbox"] { transform: scale(1); margin-right: 3px; }
             .indo { font-size: 8.5px; color: #333; line-height: 1.1; } 
+            
+            /* 列印時將內聯印尼文字體進一步微縮，確保不折行 */
+            .indo-inline { font-size: 8.5px; color: #444; margin-left: 2px; } 
+
             input[type="text"], input[type="number"] { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; height: 11px; margin: 0; }
             .group-spacing { margin-top: 2px; }
             .signature-box { flex-direction: row; gap: 0; }
@@ -221,8 +230,8 @@
             <h2>印尼勞工看護工詳情表 DAFTAR PEKERJAAN</h2>
         </div>
         <div class="header-right">
-            <label><input type="checkbox"> 家庭幫傭</label>
-            <label><input type="checkbox"> 看護工</label>
+            <label><input type="checkbox"> 家庭幫傭 <span class="indo-inline">Pembantu</span></label>
+            <label><input type="checkbox"> 看護工 <span class="indo-inline">Perawat</span></label>
         </div>
     </div>
 
@@ -264,7 +273,9 @@
                     身高：<input type="text" style="width: 30px;"> CM　體重：<input type="text" style="width: 30px;"> KG<br>
                     <div class="group-spacing">
                         <strong>使用語言 BAHASA：</strong><br>
-                        <label><input type="checkbox"> 台語 HOKKIAN</label> <label><input type="checkbox"> 國語 MANDARIN</label> <label><input type="checkbox"> 英語 INGGRIS</label>
+                        <label><input type="checkbox"> 台語 <span class="indo-inline">HOKKIAN</span></label> 
+                        <label><input type="checkbox"> 國語 <span class="indo-inline">MANDARIN</span></label> 
+                        <label><input type="checkbox"> 英語 <span class="indo-inline">INGGRIS</span></label>
                     </div>
                 </div>
             </td>
@@ -274,36 +285,53 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">病因 <span class="indo">PENYAKIT</span></div>
                 <div class="cell-content">
-                    <label><input type="checkbox"> 中風 Stroke</label><br>
-                    <label><input type="checkbox"> 帕金森 parkinson</label><br>
-                    <label><input type="checkbox"> 阿滋海默 Alzheimer</label><br>
-                    <label><input type="checkbox"> 糖尿病 Diabetes</label><br>
-                    <label><input type="checkbox"> 植物人 Keadaan vegetatif</label><br>
-                    <label><input type="checkbox"> 精神病 Penyakit kejiwaan</label><br>
-                    <label><input type="checkbox"> 智能障礙 Cacat intelektual</label><br>
-                    <label><input type="checkbox"> 癌症 Kanker：<input type="text" style="width: 40px;"> 癌 <input type="text" style="width: 25px;"> 期 Stadium kanker</label><br>
-                    <label><input type="checkbox"> 失智 Demensia：</label><br>
-                    　<label><input type="checkbox"> 輕度 Ringan</label> <label><input type="checkbox"> 中度 Sedang</label> <label><input type="checkbox"> 重度 Berat</label>
+                    <label><input type="checkbox"> 中風 <span class="indo-inline">Stroke</span></label><br>
+                    <label><input type="checkbox"> 帕金森 <span class="indo-inline">parkinson</span></label><br>
+                    <label><input type="checkbox"> 阿滋海默 <span class="indo-inline">Alzheimer</span></label><br>
+                    <label><input type="checkbox"> 糖尿病 <span class="indo-inline">Diabetes</span></label><br>
+                    <label><input type="checkbox"> 植物人 <span class="indo-inline">Keadaan vegetatif</span></label><br>
+                    <label><input type="checkbox"> 精神病 <span class="indo-inline">Penyakit kejiwaan</span></label><br>
+                    <label><input type="checkbox"> 智能障礙 <span class="indo-inline">Cacat intelektual</span></label><br>
+                    <label><input type="checkbox"> 癌症 <span class="indo-inline">Kanker：</span><input type="text" style="width: 40px;"> 癌 <input type="text" style="width: 25px;"> 期 <span class="indo-inline">Stadium kanker</span></label><br>
+                    <label><input type="checkbox"> 失智 <span class="indo-inline">Demensia：</span></label><br>
+                    　<label><input type="checkbox"> 輕度 <span class="indo-inline">Ringan</span></label> 
+                    <label><input type="checkbox"> 中度 <span class="indo-inline">Sedang</span></label> 
+                    <label><input type="checkbox"> 重度 <span class="indo-inline">Berat</span></label>
                 </div>
             </td>
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></div>
                 <div class="cell-content">
-                    <label><input type="checkbox"> 癱瘓程度 Tingkat kelumpuhan：</label><br>
-                    　<label><input type="checkbox"> 上身癱瘓</label> <label><input type="checkbox"> 下身癱瘓</label> 
-                    　<label><input type="checkbox"> 頸椎以下癱瘓</label> <label><input type="checkbox"> 全身癱瘓</label><br>
-                    <label><input type="checkbox"> 行動能力 Mobilitas：</label><br>
-                    　<label><input type="checkbox"> 自由行動</label> <label><input type="checkbox"> 需扶持行走</label> 
-                    　<label><input type="checkbox"> 無法行走,需抱、移位</label><br>
-                    <label><input type="checkbox"> 意識狀態 Keadaan sadar：</label><br>
-                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 只能簡單對話</label><br>
-                    　<label><input type="checkbox"> 有意識但無法表達</label> <label><input type="checkbox"> 無意識</label><br>
+                    <label><input type="checkbox"> 癱瘓程度 <span class="indo-inline">Tingkat kelumpuhan：</span></label><br>
+                    　<label><input type="checkbox"> 上身癱瘓 <span class="indo-inline">Lumpuh separuh atas</span></label> 
+                    　<label><input type="checkbox"> 下身癱瘓 <span class="indo-inline">Lumpuh separuh bawah</span></label><br>
+                    　<label><input type="checkbox"> 頸椎以下癱瘓 <span class="indo-inline">Lumpuh bawah leher</span></label> 
+                    　<label><input type="checkbox"> 全身癱瘓 <span class="indo-inline">Lumpuh total</span></label><br>
+                    
+                    <label><input type="checkbox"> 行動能力 <span class="indo-inline">Mobilitas：</span></label><br>
+                    　<label><input type="checkbox"> 自由行動 <span class="indo-inline">Bergerak bebas</span></label> 
+                    　<label><input type="checkbox"> 需扶持行走 <span class="indo-inline">Butuh bantuan berjalan</span></label><br>
+                    　<label><input type="checkbox"> 無法行走,需抱、移位 <span class="indo-inline">Tidak bisa jalan, harus digendong/pindah</span></label><br>
+                    
+                    <label><input type="checkbox"> 意識狀態 <span class="indo-inline">Keadaan sadar：</span></label><br>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    　<label><input type="checkbox"> 只能簡單對話 <span class="indo-inline">Hanya obrolan sederhana</span></label><br>
+                    　<label><input type="checkbox"> 有意識但無法表達 <span class="indo-inline">Sadar tapi tidak bisa bicara</span></label> 
+                    　<label><input type="checkbox"> 無意識 <span class="indo-inline">Tidak sadar</span></label><br>
+                    
                     <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
-                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 軟便劑</label><br>
-                    　<label><input type="checkbox"> 需協助挖大便</label><br>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
+                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
+                    <label><input type="checkbox"> 軟便劑 <span class="indo-inline">Pelunak BAB</span></label><br>
+                    　<label><input type="checkbox"> 需協助挖大便 <span class="indo-inline">Butuh bantuan mengeluarkan BAB</span></label><br>
+                    
                     <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
-                    　<label><input type="checkbox"> 正常</label> <label><input type="checkbox"> 便盆椅</label> <label><input type="checkbox"> 尿布</label> <label><input type="checkbox"> 尿袋</label><br>
-                    　<label><input type="checkbox"> 需協助使用導尿管</label>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
+                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
+                    <label><input type="checkbox"> 尿袋 <span class="indo-inline">Kantong urin</span></label><br>
+                    　<label><input type="checkbox"> 需協助使用導尿管 <span class="indo-inline">Perlu bantuan pakai kateter urin</span></label>
                 </div>
             </td>
         </tr>
@@ -315,46 +343,49 @@
         <tr>
             <td colspan="2">
                 <strong>☆照顧病人 / JAGA ORANG SAKIT</strong><br>
-                <label><input type="checkbox"> 協助復健 Re Check Up</label> <label><input type="checkbox"> 餵食 Suapin Manan</label><br>
-                <label><input type="checkbox"> 抽痰 Sedot Dahak</label> <label><input type="checkbox"> 要抱 Gendong/Augkat</label><br>
-                <label><input type="checkbox"> 夜間照顧 Jaga Malam Hari</label> <label><input type="checkbox"> 洗澡 Bantu Mandi</label><br>
-                <label><input type="checkbox"> 協助打胰島素 Bantu menyuntik insulin</label><br>
-                <label><input type="checkbox"> 協助量血糖 Bantu ukur gula darah</label><br>
-                <label><input type="checkbox"> 協助鼻胃管 Bantu kasih makan lewat selang</label><br>
-                <label><input type="checkbox"> 按摩、陪伴病人 Memijit、Menemani Pasien</label><br>
-                <label><input type="checkbox"> 協助翻身拍背 Bantu balik badan tepuk punggung</label><br>
-                <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label>
+                <label><input type="checkbox"> 協助復健 <span class="indo-inline">Re Check Up</span></label> <label><input type="checkbox"> 餵食 <span class="indo-inline">Suapin Manan</span></label><br>
+                <label><input type="checkbox"> 抽痰 <span class="indo-inline">Sedot Dahak</span></label> <label><input type="checkbox"> 要抱 <span class="indo-inline">Gendong/Augkat</span></label><br>
+                <label><input type="checkbox"> 夜間照顧 <span class="indo-inline">Jaga Malam Hari</span></label> <label><input type="checkbox"> 洗澡 <span class="indo-inline">Bantu Mandi</span></label><br>
+                <label><input type="checkbox"> 協助打胰島素 <span class="indo-inline">Bantu menyuntik insulin</span></label><br>
+                <label><input type="checkbox"> 協助量血糖 <span class="indo-inline">Bantu ukur gula darah</span></label><br>
+                <label><input type="checkbox"> 協助鼻胃管 <span class="indo-inline">Bantu kasih makan lewat selang</span></label><br>
+                <label><input type="checkbox"> 按摩、陪伴病人 <span class="indo-inline">Memijit、Menemani Pasien</span></label><br>
+                <label><input type="checkbox"> 協助翻身拍背 <span class="indo-inline">Bantu balik badan tepuk punggung</span></label><br>
+                <label><input type="checkbox"> 需要同房不同床 <span class="indo-inline">Satu kamar beda ranjang</span></label>
                 
                 <div class="group-spacing">
                     <strong>☆照顧小孩、嬰兒 / JAGA ANAK KECIL、BAYI</strong><br>
-                    <label><input type="checkbox"> 換尿片 Ganti Pampers</label> <label><input type="checkbox"> 洗澡 Mandi</label><br>
-                    <label><input type="checkbox"> 餵三餐 Kasih susu/Makan</label> <label><input type="checkbox"> 要抱 Gendong</label><br>
-                    <label><input type="checkbox"> 伴讀及遊戲 Tema Belajar main</label><br>
-                    <label><input type="checkbox"> 需要同房不同床 Satu kamar beda ranjang</label><br>
-                    <label><input type="checkbox"> 需要同房同床 Satu kamar seranjang</label>
+                    <label><input type="checkbox"> 換尿片 <span class="indo-inline">Ganti Pampers</span></label> <label><input type="checkbox"> 洗澡 <span class="indo-inline">Mandi</span></label><br>
+                    <label><input type="checkbox"> 餵三餐 <span class="indo-inline">Kasih susu/Makan</span></label> <label><input type="checkbox"> 要抱 <span class="indo-inline">Gendong</span></label><br>
+                    <label><input type="checkbox"> 伴讀及遊戲 <span class="indo-inline">Tema Belajar main</span></label><br>
+                    <label><input type="checkbox"> 需要同房不同床 <span class="indo-inline">Satu kamar beda ranjang</span></label><br>
+                    <label><input type="checkbox"> 需要同房同床 <span class="indo-inline">Satu kamar seranjang</span></label>
                 </div>
             </td>
             <td colspan="2">
                 <strong>☆家庭清潔工作 / BERSIH RUMAH</strong><br>
-                <label><input type="checkbox"> 煮食三餐 Masak 3 Kali Sehari</label>
-                <label><input type="checkbox"> 清潔打掃 BERSIH2</label><br>
-                <label><input type="checkbox"> 洗衣服 Cuci Baju</label>
-                <label><input type="checkbox"> 燙衣服 Gosok Baju</label><br>
-                <label><input type="checkbox"> 洗車 Cuci Mobil</label>
-                <label><input type="checkbox"> 照顧寵物 Urus Binatang</label><br>
-                <label><input type="checkbox"> 買菜 Beli Sayur</label>
-                <label><input type="checkbox"> 做點心 Buat Kue</label><br>
-                <label><input type="checkbox"> 園藝 Urus Taman</label>
-                <label><input type="checkbox"> 垃圾處理 Buang Sampah</label><br>
-                <label><input type="checkbox"> 其他家事 Pekerj Aan Lainnya</label>
+                <label><input type="checkbox"> 煮食三餐 <span class="indo-inline">Masak 3 Kali Sehari</span></label>
+                <label><input type="checkbox"> 清潔打掃 <span class="indo-inline">BERSIH2</span></label><br>
+                <label><input type="checkbox"> 洗衣服 <span class="indo-inline">Cuci Baju</span></label>
+                <label><input type="checkbox"> 燙衣服 <span class="indo-inline">Gosok Baju</span></label><br>
+                <label><input type="checkbox"> 洗車 <span class="indo-inline">Cuci Mobil</span></label>
+                <label><input type="checkbox"> 照顧寵物 <span class="indo-inline">Urus Binatang</span></label><br>
+                <label><input type="checkbox"> 買菜 <span class="indo-inline">Beli Sayur</span></label>
+                <label><input type="checkbox"> 做點心 <span class="indo-inline">Buat Kue</span></label><br>
+                <label><input type="checkbox"> 園藝 <span class="indo-inline">Urus Taman</span></label>
+                <label><input type="checkbox"> 垃圾處理 <span class="indo-inline">Buang Sampah</span></label><br>
+                <label><input type="checkbox"> 其他家事 <span class="indo-inline">Pekerj Aan Lainnya</span></label>
                 
                 <div class="group-spacing">
                     <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
                     １．年齡 UMUR <input type="text" style="width: 25px;"> 歲 THN<br>
                     ２．身高 Tinggi <input type="text" style="width: 25px;"> cm　體重 Berat <input type="text" style="width: 25px;"> kg<br>
                     ３．婚姻 STATUS：<br>
-                    　<label><input type="checkbox"> 已婚</label> <label><input type="checkbox"> 未婚</label> <label><input type="checkbox"> 離婚</label> <label><input type="checkbox"> 鰥寡</label><br>
-                    ４．小孩 Anak kecil：<label><input type="checkbox"> 有 Ada</label>　<label><input type="checkbox"> 沒有 Tidak ada</label>
+                    　<label><input type="checkbox"> 已婚 <span class="indo-inline">Sudah menikah</span></label> 
+                    <label><input type="checkbox"> 未婚 <span class="indo-inline">Belum menikah</span></label><br>
+                    　<label><input type="checkbox"> 離婚 <span class="indo-inline">Cerai</span></label> 
+                    <label><input type="checkbox"> 鰥寡 <span class="indo-inline">Cerai mati</span></label><br>
+                    ４．小孩 Anak kecil：<label><input type="checkbox"> 有 <span class="indo-inline">Ada</span></label>　<label><input type="checkbox"> 沒有 <span class="indo-inline">Tidak ada</span></label>
                 </div>
             </td>
         </tr>
