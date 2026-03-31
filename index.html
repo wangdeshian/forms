@@ -246,7 +246,7 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></div>
                 <div class="cell-content">
-                    姓名 NAMA：<input type="text" class="long-input" id="employerName" value="鄭怡"><br>
+                    姓名 NAMA：<input type="text" class="long-input" id="employerName"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
                     與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
                     與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
@@ -388,7 +388,7 @@
         <tr>
             <td colspan="2">
                 <strong>●挑選女傭編號 PILIH NO INDUK●</strong><br>
-                １．<input type="text" class="long-input" value="DWI RAHAYU LARASATI"><br>
+                １．<input type="text" class="long-input"><br>
                 ２．<input type="text" class="long-input"><br>
                 ３．<input type="text" class="long-input"><br>
                 <div class="group-spacing">
@@ -441,7 +441,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script>
-    // 您的專屬 Firebase 金鑰已經完美設定就緒！
     const firebaseConfig = {
         apiKey: "AIzaSyB-d8MPUsZKgNIdTdOD5SZcJd2EUaU6Vvc",
         authDomain: "form-26dea.firebaseapp.com",
@@ -452,16 +451,13 @@
         measurementId: "G-DDLL1CP879"
     };
 
-    // 啟動 Firebase 雲端連線
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 儲存並自動呼叫列印的雙效能函數
     function saveDataAndPrint() {
         const empName = document.getElementById('employerName').value || "未填寫雇主姓名";
         const patName = document.getElementById('patientName').value || "未填寫病患姓名";
 
-        // 發送到 Firebase 雲端資料庫
         db.collection("cases").add({
             employerName: empName,
             patientName: patName,
