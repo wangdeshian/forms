@@ -5,56 +5,219 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>印尼勞工看護工詳情表</title>
     <style>
-        /* 保持原有的排版樣式 */
-        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f0f2f5; color: #000; font-size: 13px; margin: 0; padding: 20px; }
-        .page-container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header-container { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .header-spacer { width: 160px; }
-        .header-center { text-align: center; flex-grow: 1; }
-        .header-center h1 { font-size: 21px; margin: 0; letter-spacing: 1px; }
-        .header-center h2 { font-size: 17px; margin: 4px 0 0 0; }
-        .header-right { width: 160px; text-align: right; font-weight: bold; font-size: 14px; display: flex; flex-direction: column; gap: 2px; }
-        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-        th, td { border: 1px solid #000; padding: 4px 6px; vertical-align: top; line-height: 1.3; }
-        .cell-no-pad { padding: 0 !important; }
-        .section-title { background-color: #e6e6e6; font-weight: bold; text-align: center; padding: 4px 6px; border-bottom: 1px solid #000; }
-        .cell-content { padding: 4px 6px; }
-        .section-title-full { background-color: #e6e6e6; font-weight: bold; text-align: center; }
-        .indo { font-size: 11px; color: #555; display: block; }
-        .indo-inline { font-size: 11px; color: #666; display: inline; margin-left: 4px; font-weight: normal; }
-        input[type="text"], input[type="number"] { border: none; border-bottom: 1px solid #666; width: 80px; font-family: inherit; font-size: 13px; padding: 1px; background: transparent; }
-        input[type="text"].long-input { width: 80%; }
-        label { display: inline-flex; align-items: center; margin-right: 8px; cursor: pointer; margin-bottom: 2px; }
-        input[type="checkbox"] { margin-right: 3px; cursor: pointer; }
-        .red-text { color: red; font-weight: bold; }
-        .btn-print { display: block; width: 100%; padding: 12px; background-color: #28a745; color: white; text-align: center; font-size: 16px; font-weight: bold; border: none; cursor: pointer; margin-top: 15px; border-radius: 5px; }
-        .group-spacing { margin-top: 6px; }
-        .signature-box { display: flex; justify-content: space-between; text-align: center; margin-top: 15px; }
-        .signature-column { width: 30%; }
-        @media screen and (max-width: 768px) {
-            body { padding: 10px; } .page-container { padding: 15px; } .header-container { flex-direction: column; align-items: center; text-align: center; }
-            .header-spacer { display: none; } .header-right { width: 100%; flex-direction: row; justify-content: center; gap: 20px; margin-top: 10px; }
-            table, thead, tbody, th, td, tr { display: block; width: 100%; box-sizing: border-box; }
-            th, td { border: none; border-bottom: 1px solid #ddd; padding: 12px 5px; } .cell-no-pad { border-bottom: none; } 
-            .section-title, .section-title-full { background-color: #0056b3; color: #fff; border-radius: 4px; border-bottom: none; margin-bottom: 5px; }
-            .cell-content { padding: 5px 5px 15px 5px; border-bottom: 1px solid #ddd; }
-            input[type="text"], input[type="number"] { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
-            input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; } label { padding: 8px 0; margin-right: 15px; }
-            .signature-box { flex-direction: column; gap: 30px; } .signature-column { width: 100%; }
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: #f0f2f5;
+            color: #000;
+            font-size: 13px;
+            margin: 0;
+            padding: 20px;
         }
+        .page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .header-spacer {
+            width: 160px;
+        }
+        .header-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+        .header-center h1 {
+            font-size: 21px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .header-center h2 {
+            font-size: 17px;
+            margin: 4px 0 0 0;
+        }
+        .header-right {
+            width: 160px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 4px 6px;
+            vertical-align: top;
+            line-height: 1.3;
+        }
+        
+        .cell-no-pad {
+            padding: 0 !important;
+        }
+        .section-title {
+            background-color: #e6e6e6;
+            font-weight: bold;
+            text-align: center;
+            padding: 4px 6px;
+            border-bottom: 1px solid #000;
+        }
+        .cell-content {
+            padding: 4px 6px;
+        }
+        .section-title-full {
+            background-color: #e6e6e6;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .indo {
+            font-size: 11px;
+            color: #555;
+            display: block;
+        }
+        
+        .indo-inline {
+            font-size: 11px;
+            color: #666;
+            display: inline;
+            margin-left: 4px;
+            font-weight: normal;
+        }
+
+        input[type="text"], input[type="number"] {
+            border: none;
+            border-bottom: 1px solid #666;
+            width: 80px;
+            font-family: inherit;
+            font-size: 13px;
+            padding: 1px;
+            background: transparent;
+        }
+        input[type="text"].long-input {
+            width: 80%;
+        }
+        label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+        input[type="checkbox"] {
+            margin-right: 3px;
+            cursor: pointer;
+        }
+        .red-text {
+            color: red;
+            font-weight: bold;
+        }
+        .btn-print {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        
+        .group-spacing {
+            margin-top: 6px;
+        }
+
+        .signature-box {
+            display: flex; 
+            justify-content: space-between; 
+            text-align: center; 
+            margin-top: 15px;
+        }
+        .signature-column {
+            width: 30%;
+        }
+
+        @media screen and (max-width: 768px) {
+            body { padding: 10px; }
+            .page-container { padding: 15px; }
+            .header-container { flex-direction: column; align-items: center; text-align: center; }
+            .header-spacer { display: none; }
+            .header-right { width: 100%; flex-direction: row; justify-content: center; gap: 20px; margin-top: 10px; }
+            table, thead, tbody, th, td, tr { display: block; width: 100%; box-sizing: border-box; }
+            
+            th, td { border: none; border-bottom: 1px solid #ddd; padding: 12px 5px; }
+            .cell-no-pad { border-bottom: none; } 
+            
+            .section-title, .section-title-full {
+                background-color: #0056b3;
+                color: #fff;
+                border-radius: 4px;
+                border-bottom: none;
+                margin-bottom: 5px;
+            }
+            .section-title .indo, .section-title-full .indo { color: #e0e0e0; }
+            .cell-content { padding: 5px 5px 15px 5px; border-bottom: 1px solid #ddd; }
+
+            input[type="text"], input[type="number"] { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
+            input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; }
+            label { padding: 8px 0; margin-right: 15px; }
+            .signature-box { flex-direction: column; gap: 30px; }
+            .signature-column { width: 100%; }
+        }
+        
         @page { size: A4 portrait; margin: 3mm; }
         @media print {
-            body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; } .page-container { box-shadow: none; padding: 0; max-width: 100%; }
-            .btn-print { display: none; } .header-container { margin-bottom: 2px; }
-            table, thead, tbody, th, td, tr { display: table; display: table-cell; } tr { display: table-row; }
+            body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; }
+            .page-container { box-shadow: none; padding: 0; max-width: 100%; }
+            .btn-print { display: none; }
+            .header-container { margin-bottom: 2px; }
+            .header-center h1 { font-size: 15px; margin: 0; }
+            .header-center h2 { font-size: 12px; margin: 2px 0 0 0; }
+            table, thead, tbody, th, td, tr { display: table; display: table-cell; }
+            tr { display: table-row; }
+            tbody { display: table-row-group; }
+            table { display: table; width: 100%; border-collapse: collapse; }
             th, td { border: 1px solid #000; padding: 1px 2px; line-height: 1.05; }
-            .section-title { background-color: #e6e6e6 !important; -webkit-print-color-adjust: exact; }
+            
+            .cell-no-pad { padding: 0 !important; }
+            .section-title { padding: 1px 2px; border-bottom: 1px solid #000; background-color: #e6e6e6 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .cell-content { padding: 1px 2px; }
+            .section-title-full { background-color: #e6e6e6 !important; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+            label { margin-bottom: 0px; margin-right: 6px; padding: 0; }
+            input[type="checkbox"] { transform: scale(1); margin-right: 3px; }
+            .indo { font-size: 8.5px; color: #333; line-height: 1.1; } 
+            
+            .indo-inline { font-size: 8.5px; color: #444; margin-left: 2px; } 
+
+            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; height: 11px; margin: 0; }
+            .group-spacing { margin-top: 2px; }
+            .signature-box { flex-direction: row; gap: 0; }
+            .signature-column { width: 30%; }
         }
     </style>
 </head>
 <body>
 
 <div class="page-container">
+    
     <div class="header-container">
         <div class="header-spacer"></div>
         <div class="header-center">
@@ -75,14 +238,24 @@
                 <label><input type="checkbox"> 重招</label>
                 <label><input type="checkbox"> 遞補</label>
                 <span style="margin-left: 15px; display: inline-block;">原外勞出境日： <input type="text" style="width: 35px;"> 年 <input type="text" style="width: 25px;"> 月 <input type="text" style="width: 25px;"> 日</span>
+                <span style="margin-left: 15px; display: inline-block;">剩餘工期： <input type="text" style="width: 35px;"> 年 <input type="text" style="width: 25px;"> 月（含展延）</span>
             </td>
         </tr>
+
         <tr>
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></div>
                 <div class="cell-content">
                     姓名 NAMA：<input type="text" class="long-input" id="employerName"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                    與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
+                    與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
+                    房屋共 <input type="text" style="width: 30px;"> 層 Lantai，共 <input type="text" style="width: 30px;"> 坪 Luas<br>
+                    <div class="group-spacing">
+                        <strong>家庭成員 ANGGOTA KELUARGA：</strong><br>
+                        老年人 ORANG TUA <input type="text" style="width: 25px;"> 人，兒童 ANAK KECIL <input type="text" style="width: 25px;"> 人<br>
+                        成年人 DEWASA <input type="text" style="width: 25px;"> 人，嬰兒 BAYI <input type="text" style="width: 25px;"> 歲/BULAN <input type="text" style="width: 25px;"> 人
+                    </div>
                 </div>
             </td>
             <td colspan="2" class="cell-no-pad">
@@ -90,18 +263,179 @@
                 <div class="cell-content">
                     姓名 NAMA：<input type="text" class="long-input" id="patientName"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
+                    年齡 UMUR：<input type="text" style="width: 30px;"> 歲 THN<br>
+                    配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
+                    身高：<input type="text" style="width: 30px;"> CM　體重：<input type="text" style="width: 30px;"> KG<br>
+                    <div class="group-spacing">
+                        <strong>使用語言 BAHASA：</strong><br>
+                        <label><input type="checkbox"> 台語 <span class="indo-inline">HOKKIAN</span></label> 
+                        <label><input type="checkbox"> 國語 <span class="indo-inline">MANDARIN</span></label> 
+                        <label><input type="checkbox"> 英語 <span class="indo-inline">INGGRIS</span></label>
+                    </div>
                 </div>
             </td>
         </tr>
+
         <tr>
-            <td colspan="4" class="red-text">
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">病因 <span class="indo">PENYAKIT</span></div>
+                <div class="cell-content">
+                    <label><input type="checkbox"> 中風 <span class="indo-inline">Stroke</span></label><br>
+                    <label><input type="checkbox"> 帕金森 <span class="indo-inline">parkinson</span></label><br>
+                    <label><input type="checkbox"> 阿滋海默 <span class="indo-inline">Alzheimer</span></label><br>
+                    <label><input type="checkbox"> 糖尿病 <span class="indo-inline">Diabetes</span></label><br>
+                    <label><input type="checkbox"> 植物人 <span class="indo-inline">Keadaan vegetatif</span></label><br>
+                    <label><input type="checkbox"> 精神病 <span class="indo-inline">Penyakit kejiwaan</span></label><br>
+                    <label><input type="checkbox"> 智能障礙 <span class="indo-inline">Cacat intelektual</span></label><br>
+                    <label><input type="checkbox"> 癌症 <span class="indo-inline">Kanker：</span><input type="text" style="width: 40px;"> 癌 <input type="text" style="width: 25px;"> 期 <span class="indo-inline">Stadium kanker</span></label><br>
+                    <label><input type="checkbox"> 失智 <span class="indo-inline">Demensia：</span></label><br>
+                    　<label><input type="checkbox"> 輕度 <span class="indo-inline">Ringan</span></label> 
+                    <label><input type="checkbox"> 中度 <span class="indo-inline">Sedang</span></label> 
+                    <label><input type="checkbox"> 重度 <span class="indo-inline">Berat</span></label>
+                </div>
+            </td>
+            <td colspan="2" class="cell-no-pad">
+                <div class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></div>
+                <div class="cell-content">
+                    <label><input type="checkbox"> 癱瘓程度 <span class="indo-inline">Tingkat kelumpuhan：</span></label><br>
+                    　<label><input type="checkbox"> 上身癱瘓 <span class="indo-inline">Lumpuh separuh atas</span></label> 
+                    　<label><input type="checkbox"> 下身癱瘓 <span class="indo-inline">Lumpuh separuh bawah</span></label><br>
+                    　<label><input type="checkbox"> 頸椎以下癱瘓 <span class="indo-inline">Lumpuh bawah leher</span></label> 
+                    　<label><input type="checkbox"> 全身癱瘓 <span class="indo-inline">Lumpuh total</span></label><br>
+                    
+                    <label><input type="checkbox"> 行動能力 <span class="indo-inline">Mobilitas：</span></label><br>
+                    　<label><input type="checkbox"> 自由行動 <span class="indo-inline">Bergerak bebas</span></label> 
+                    　<label><input type="checkbox"> 需扶持行走 <span class="indo-inline">Butuh bantuan berjalan</span></label><br>
+                    　<label><input type="checkbox"> 無法行走,需抱、移位 <span class="indo-inline">Tidak bisa jalan, harus digendong/pindah</span></label><br>
+                    
+                    <label><input type="checkbox"> 意識狀態 <span class="indo-inline">Keadaan sadar：</span></label><br>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    　<label><input type="checkbox"> 只能簡單對話 <span class="indo-inline">Hanya obrolan sederhana</span></label><br>
+                    　<label><input type="checkbox"> 有意識但無法表達 <span class="indo-inline">Sadar tapi tidak bisa bicara</span></label> 
+                    　<label><input type="checkbox"> 無意識 <span class="indo-inline">Tidak sadar</span></label><br>
+                    
+                    <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
+                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
+                    <label><input type="checkbox"> 軟便劑 <span class="indo-inline">Pelunak BAB</span></label><br>
+                    　<label><input type="checkbox"> 需協助挖大便 <span class="indo-inline">Butuh bantuan mengeluarkan BAB</span></label><br>
+                    
+                    <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
+                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
+                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
+                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
+                    <label><input type="checkbox"> 尿袋 <span class="indo-inline">Kantong urin</span></label><br>
+                    　<label><input type="checkbox"> 需協助使用導尿管 <span class="indo-inline">Perlu bantuan pakai kateter urin</span></label>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4" class="section-title-full">工作內容 <span class="indo">DAFTAR PEKERJAAN</span></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <strong>☆照顧病人 / JAGA ORANG SAKIT</strong><br>
+                <label><input type="checkbox"> 協助復健 <span class="indo-inline">Re Check Up</span></label> <label><input type="checkbox"> 餵食 <span class="indo-inline">Suapin Manan</span></label><br>
+                <label><input type="checkbox"> 抽痰 <span class="indo-inline">Sedot Dahak</span></label> <label><input type="checkbox"> 要抱 <span class="indo-inline">Gendong/Augkat</span></label><br>
+                <label><input type="checkbox"> 夜間照顧 <span class="indo-inline">Jaga Malam Hari</span></label> <label><input type="checkbox"> 洗澡 <span class="indo-inline">Bantu Mandi</span></label><br>
+                <label><input type="checkbox"> 協助打胰島素 <span class="indo-inline">Bantu menyuntik insulin</span></label><br>
+                <label><input type="checkbox"> 協助量血糖 <span class="indo-inline">Bantu ukur gula darah</span></label><br>
+                <label><input type="checkbox"> 協助鼻胃管 <span class="indo-inline">Bantu kasih makan lewat selang</span></label><br>
+                <label><input type="checkbox"> 按摩、陪伴病人 <span class="indo-inline">Memijit、Menemani Pasien</span></label><br>
+                <label><input type="checkbox"> 協助翻身拍背 <span class="indo-inline">Bantu balik badan tepuk punggung</span></label><br>
+                <label><input type="checkbox"> 需要同房不同床 <span class="indo-inline">Satu kamar beda ranjang</span></label>
+                
+                <div class="group-spacing">
+                    <strong>☆照顧小孩、嬰兒 / JAGA ANAK KECIL、BAYI</strong><br>
+                    <label><input type="checkbox"> 換尿片 <span class="indo-inline">Ganti Pampers</span></label> <label><input type="checkbox"> 洗澡 <span class="indo-inline">Mandi</span></label><br>
+                    <label><input type="checkbox"> 餵三餐 <span class="indo-inline">Kasih susu/Makan</span></label> <label><input type="checkbox"> 要抱 <span class="indo-inline">Gendong</span></label><br>
+                    <label><input type="checkbox"> 伴讀及遊戲 <span class="indo-inline">Tema Belajar main</span></label><br>
+                    <label><input type="checkbox"> 需要同房不同床 <span class="indo-inline">Satu kamar beda ranjang</span></label><br>
+                    <label><input type="checkbox"> 需要同房同床 <span class="indo-inline">Satu kamar seranjang</span></label>
+                </div>
+            </td>
+            <td colspan="2">
+                <strong>☆家庭清潔工作 / BERSIH RUMAH</strong><br>
+                <label><input type="checkbox"> 煮食三餐 <span class="indo-inline">Masak 3 Kali Sehari</span></label>
+                <label><input type="checkbox"> 清潔打掃 <span class="indo-inline">BERSIH2</span></label><br>
+                <label><input type="checkbox"> 洗衣服 <span class="indo-inline">Cuci Baju</span></label>
+                <label><input type="checkbox"> 燙衣服 <span class="indo-inline">Gosok Baju</span></label><br>
+                <label><input type="checkbox"> 洗車 <span class="indo-inline">Cuci Mobil</span></label>
+                <label><input type="checkbox"> 照顧寵物 <span class="indo-inline">Urus Binatang</span></label><br>
+                <label><input type="checkbox"> 買菜 <span class="indo-inline">Beli Sayur</span></label>
+                <label><input type="checkbox"> 做點心 <span class="indo-inline">Buat Kue</span></label><br>
+                <label><input type="checkbox"> 園藝 <span class="indo-inline">Urus Taman</span></label>
+                <label><input type="checkbox"> 垃圾處理 <span class="indo-inline">Buang Sampah</span></label><br>
+                <label><input type="checkbox"> 其他家事 <span class="indo-inline">Pekerj Aan Lainnya</span></label>
+                
+                <div class="group-spacing">
+                    <strong>●期望女傭條件 Kriteria pekerja yang Diharapkan●</strong><br>
+                    １．年齡 UMUR <input type="text" style="width: 25px;"> 歲 THN<br>
+                    ２．身高 Tinggi <input type="text" style="width: 25px;"> cm　體重 Berat <input type="text" style="width: 25px;"> kg<br>
+                    ３．婚姻 STATUS：<br>
+                    　<label><input type="checkbox"> 已婚 <span class="indo-inline">Sudah menikah</span></label> 
+                    <label><input type="checkbox"> 未婚 <span class="indo-inline">Belum menikah</span></label><br>
+                    　<label><input type="checkbox"> 離婚 <span class="indo-inline">Cerai</span></label> 
+                    <label><input type="checkbox"> 鰥寡 <span class="indo-inline">Cerai mati</span></label><br>
+                    ４．小孩 Anak kecil：<label><input type="checkbox"> 有 <span class="indo-inline">Ada</span></label>　<label><input type="checkbox"> 沒有 <span class="indo-inline">Tidak ada</span></label>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <strong>●挑選女傭編號 PILIH NO INDUK●</strong><br>
+                １．<input type="text" class="long-input"><br>
+                ２．<input type="text" class="long-input"><br>
+                ３．<input type="text" class="long-input"><br>
+                <div class="group-spacing">
+                    <strong>●確工女傭編號／日期●</strong><br>
+                    <input type="text" style="width: 70px;"> / <input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"><br>
+                </div>
+                <div class="group-spacing">
+                    來台工作地點 Tempat kerja di Taiwan：<br>
+                    <input type="text" class="long-input">
+                </div>
+            </td>
+            <td colspan="2" class="red-text">
+                ●外勞工作內容說明 / PEKERJAAN KHUSUS●<br>
+                ★會以願意三年不休假為優先考慮聘僱！<br>
+                <span class="indo red-text">Diutamakan mereka yang bersedia tidak libur selama tiga tahun!</span><br>
+                ★為確保被照顧者的人身安全及被照顧品質,工人上班時間中禁止使用手機上網、講電話、視訊、戴耳機聽音樂！<br>
+                <span class="indo red-text">Untuk memastikan keselamatan pribadi orang yang dirawat dan kualitas layanan, pekerja dilarang menggunakan ponsel untuk menjelajahi Internet, berbicara di telepon, melakukan obrolan video, atau memakai headphone untuk mendengarkan musik selama jam kerja!</span><br>
+                ★請工人確定可以接受這個工作內容再來台灣工作,確定後來台灣一契約是三年（不能換工作、不能換僱主)！<br>
+                <span class="indo red-text">Pastikan pekerja dapat menerima konten pekerjaan sebelum mulai bekerja di Taiwan. Pastikan kontrak di Taiwan berlaku selama tiga tahun (Anda tidak dapat berganti pekerjaan atau majikan)!</span><br>
                 ★合約期間之各項福利依規定辦理，外勞提前離境須自行負擔回程機票！<br>
                 <span class="indo red-text">Fasilitas selama masa kontrak sesuai peraturan, jika pekerja pulang lebih awal maka wajib menanggung sendiri tiket pesawat pulang!</span>
             </td>
         </tr>
+
+        <tr>
+            <td colspan="4">
+                <strong>●女傭請詳閱工作後內容簽名並押指紋●</strong><br>
+                <span class="indo">Pembantu rumah harap membaca konten pasca kerja dengan cermat, menandatangani dan mengambil sidik jari Anda</span>
+                
+                <div class="signature-box">
+                    <div class="signature-column">
+                        <hr style="border-top: 1px solid #000; margin-bottom: 2px;">
+                        雇主簽名<br><span class="indo">TANDA TANGAN MAJIKAN</span>
+                    </div>
+                    <div class="signature-column">
+                        <hr style="border-top: 1px solid #000; margin-bottom: 2px;">
+                        業務經理簽名<br><span class="indo">TANDA TANGAN SALES</span>
+                    </div>
+                    <div class="signature-column">
+                        填表日期：<input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"><br>
+                    </div>
+                </div>
+            </td>
+        </tr>
     </table>
 
-    <button class="btn-print" id="mainButton" onclick="handleAction()">儲存 / 匯出成 PDF</button>
+    <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -120,40 +454,24 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 檢查網址是否有案件 ID
-    const urlParams = new URLSearchParams(window.location.search);
-    const caseId = urlParams.get('id');
+    function saveDataAndPrint() {
+        const empName = document.getElementById('employerName').value || "未填寫雇主姓名";
+        const patName = document.getElementById('patientName').value || "未填寫病患姓名";
 
-    // 如果網址有 ID，就去資料庫抓資料填入
-    if (caseId) {
-        document.getElementById('mainButton').innerText = "列印此案件 (PDF)";
-        db.collection("cases").doc(caseId).get().then((doc) => {
-            if (doc.exists) {
-                const data = doc.data();
-                document.getElementById('employerName').value = data.employerName || "";
-                document.getElementById('patientName').value = data.patientName || "";
-                // 這裡會自動填入已存的資料
-            }
-        });
-    }
-
-    function handleAction() {
-        if (caseId) {
-            // 如果是舊案件，直接列印
+        db.collection("cases").add({
+            employerName: empName,
+            patientName: patName,
+            uploadDate: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            console.log("資料已成功上傳雲端！");
             window.print();
-        } else {
-            // 如果是新案件，先儲存再列印
-            const empName = document.getElementById('employerName').value || "未填寫";
-            const patName = document.getElementById('patientName').value || "未填寫";
-
-            db.collection("cases").add({
-                employerName: empName,
-                patientName: patName,
-                uploadDate: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                window.print();
-            });
-        }
+        })
+        .catch((error) => {
+            console.error("儲存發生錯誤: ", error);
+            alert("雲端連線似乎有狀況，但仍為您開啟列印畫面以便存檔！");
+            window.print();
+        });
     }
 </script>
 </body>
