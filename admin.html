@@ -2,42 +2,33 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>得賢引才 - 聘工表案件管理中心</title>
+    <title>得賢引才 - 管理中心</title>
     <style>
-        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f8f9fa; padding: 20px; }
-        .admin-container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h2 { border-bottom: 2px solid #0056b3; padding-bottom: 10px; color: #333; display: flex; align-items: center; justify-content: space-between; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: #f4f7f6; padding: 40px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { color: #333; border-bottom: 2px solid #28a745; padding-bottom: 10px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
-        th { background-color: #f1f3f5; font-weight: bold; }
-        tr:hover { background-color: #f8f9fa; }
-        .btn-view { background-color: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 13px; }
-        .btn-add { background-color: #28a745; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 14px; }
-        .status-tag { font-size: 12px; color: #666; font-style: italic; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #f8f9fa; }
+        .btn-download { background: #007bff; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; cursor: pointer; border: none; }
+        .btn-download:hover { background: #0056b3; }
     </style>
 </head>
 <body>
 
-<div class="admin-container">
-    <h2>
-        <span>📁 聘工表案件管理中心</span>
-        <a href="index.html" class="btn-add">+ 新增聘工表</a>
-    </h2>
-
+<div class="container">
+    <h2>📁 聘工表案件管理中心</h2>
     <table>
         <thead>
             <tr>
-                <th>雇主姓名 (NAMA)</th>
+                <th>雇主姓名</th>
                 <th>被照顧人</th>
                 <th>上傳日期</th>
                 <th>操作</th>
             </tr>
         </thead>
-        <tbody id="case-list">
-            <tr>
-                <td colspan="4" style="text-align:center;">正在連線雲端資料庫...</td>
-            </tr>
+        <tbody id="list-body">
+            <tr><td colspan="4">讀取中...</td></tr>
         </tbody>
     </table>
 </div>
@@ -46,7 +37,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <script>
-    // 1. 請務必確認這裡的金鑰與 index.html 完全一致
     const firebaseConfig = {
         apiKey: "AIzaSyB-d8MPUsZKgNIdTdOD5SZcJd2EUaU6Vvc",
         authDomain: "form-26dea.firebaseapp.com",
@@ -60,38 +50,30 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 2. 即時監聽資料庫中的 cases 集合
-    db.collection("cases").orderBy("uploadDate", "desc")
-    .onSnapshot((querySnapshot) => {
-        const tableBody = document.getElementById('case-list');
-        tableBody.innerHTML = ""; // 清空舊列表
-
-        if (querySnapshot.empty) {
-            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">目前尚無任何案件資料</td></tr>';
-            return;
-        }
-
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const date = data.uploadDate ? new Date(data.uploadDate.seconds * 1000).toLocaleString() : "處理中...";
-            
-            const row = `
+    // 即時讀取列表
+    db.collection("cases").orderBy("uploadDate", "desc").onSnapshot(snapshot => {
+        const body = document.getElementById('list-body');
+        body.innerHTML = "";
+        snapshot.forEach(doc => {
+            const res = doc.data();
+            const date = res.uploadDate ? new Date(res.uploadDate.seconds * 1000).toLocaleDateString() : "-";
+            body.innerHTML += `
                 <tr>
-                    <td><strong>${data.employerName || '未填'}</strong></td>
-                    <td>${data.patientName || '未填'}</td>
-                    <td class="status-tag">${date}</td>
+                    <td>${res.employerName}</td>
+                    <td>${res.patientName}</td>
+                    <td>${date}</td>
                     <td>
-                        <a href="index.html?id=${doc.id}" class="btn-view">檢視 / 下載 PDF</a>
+                        <button class="btn-download" onclick="goToDownload('${doc.id}')">下載 PDF 檔案</button>
                     </td>
                 </tr>
             `;
-            tableBody.innerHTML += row;
         });
-    }, (error) => {
-        console.error("讀取失敗：", error);
-        document.getElementById('case-list').innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">讀取失敗，請檢查 Firebase 規則！</td></tr>`;
     });
-</script>
 
+    // 關鍵跳轉：帶 ID 到 index.html 下載
+    function goToDownload(id) {
+        window.location.href = `index.html?id=${id}`;
+    }
+</script>
 </body>
 </html>
