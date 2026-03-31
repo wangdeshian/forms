@@ -5,187 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>得賢引才 - 聘工表案件管理中心</title>
     <style>
-        body {
-            font-family: "Microsoft JhengHei", sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .admin-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #0056b3;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #2c3e50;
-        }
-        .btn-new {
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-        .btn-new:hover { background-color: #218838; }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-        }
-        th {
-            background-color: #f8f9fa;
-            color: #495057;
-            font-weight: bold;
-        }
-        tr:hover {
-            background-color: #f1f3f5;
-        }
-        .employer-name {
-            font-size: 16px;
-            font-weight: bold;
-            color: #0056b3;
-        }
-        .date-text {
-            color: #6c757d;
-            font-size: 14px;
-        }
-        .btn-download {
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-download:hover {
-            background-color: #004494;
-        }
-        #loadingMsg {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-        }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f8f9fa; padding: 20px; }
+        .admin-container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #0056b3; padding-bottom: 10px; color: #333; display: flex; align-items: center; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
+        th { background-color: #f1f3f5; font-weight: bold; }
+        tr:hover { background-color: #f8f9fa; }
+        .btn-view { background-color: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 13px; }
+        .btn-add { background-color: #28a745; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 14px; }
+        .status-tag { font-size: 12px; color: #666; font-style: italic; }
     </style>
 </head>
 <body>
 
 <div class="admin-container">
-    <div class="header">
-        <h1>📁 聘工表案件管理中心</h1>
-        <a href="index.html" class="btn-new" target="_blank">＋ 新增聘工表</a>
-    </div>
+    <h2>
+        <span>📁 聘工表案件管理中心</span>
+        <a href="index.html" class="btn-add">+ 新增聘工表</a>
+    </h2>
 
     <table>
         <thead>
             <tr>
                 <th>雇主姓名 (NAMA)</th>
+                <th>被照顧人</th>
                 <th>上傳日期</th>
-                <th style="width: 150px; text-align: center;">操作</th>
+                <th>操作</th>
             </tr>
         </thead>
-        <tbody id="casesTableBody">
+        <tbody id="case-list">
             <tr>
-                <td colspan="3" id="loadingMsg">連線讀取中，請稍候...</td>
+                <td colspan="4" style="text-align:center;">正在連線雲端資料庫...</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    // 【重要】請將這裡替換成您在 Firebase 申請到的真實 Config
+<script>
+    // 1. 請務必確認這裡的金鑰與 index.html 完全一致
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        projectId: "YOUR_PROJECT_ID",
+        apiKey: "AIzaSyB-d8MPUsZKgNIdTdOD5SZcJd2EUaU6Vvc",
+        authDomain: "form-26dea.firebaseapp.com",
+        projectId: "form-26dea",
+        storageBucket: "form-26dea.firebasestorage.app",
+        messagingSenderId: "183216722077",
+        appId: "1:183216722077:web:d0ce91fd0baf749c794474",
+        measurementId: "G-DDLL1CP879"
     };
 
-    const tableBody = document.getElementById('casesTableBody');
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    try {
-        // 嘗試初始化 Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        async function loadCases() {
-            // 抓取 'orders' 資料表，並依照時間新到舊排序
-            const q = query(collection(db, "orders"), orderBy("timestamp", "desc"));
-            const querySnapshot = await getDocs(q);
-            
-            tableBody.innerHTML = ''; // 清空載入中文字
-            
-            if (querySnapshot.empty) {
-                tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#999;">目前尚無任何案件資料</td></tr>';
-                return;
-            }
+    // 2. 即時監聽資料庫中的 cases 集合
+    db.collection("cases").orderBy("uploadDate", "desc")
+    .onSnapshot((querySnapshot) => {
+        const tableBody = document.getElementById('case-list');
+        tableBody.innerHTML = ""; // 清空舊列表
 
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const caseId = doc.id;
-                
-                // 將時間戳記轉換為易讀的台灣時間格式
-                let dateString = "時間未知";
-                if (data.timestamp) {
-                    const dateObj = data.timestamp.toDate();
-                    dateString = dateObj.toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-                }
-
-                // 產生一筆資料的 HTML
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="employer-name">${data.employerName || '未填寫姓名'}</td>
-                    <td class="date-text">${dateString}</td>
-                    <td style="text-align: center;">
-                        <a href="index.html?id=${caseId}" class="btn-download" target="_blank">📄 檢視 / 下載 PDF</a>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
+        if (querySnapshot.empty) {
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">目前尚無任何案件資料</td></tr>';
+            return;
         }
-        
-        loadCases();
 
-    } catch (error) {
-        console.warn("Firebase 尚未設定完成，顯示示範假資料。");
-        // 防呆機制：如果 Firebase 還沒設定好，先顯示一筆假資料給您預覽排版效果
-        tableBody.innerHTML = `
-            <tr>
-                <td class="employer-name">王得賢 (示範資料)</td>
-                <td class="date-text">2026/03/31 10:02</td>
-                <td style="text-align: center;">
-                    <a href="index.html?id=DemoCase001" class="btn-download" target="_blank">📄 檢視 / 下載 PDF</a>
-                </td>
-            </tr>
-        `;
-    }
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const date = data.uploadDate ? new Date(data.uploadDate.seconds * 1000).toLocaleString() : "處理中...";
+            
+            const row = `
+                <tr>
+                    <td><strong>${data.employerName || '未填'}</strong></td>
+                    <td>${data.patientName || '未填'}</td>
+                    <td class="status-tag">${date}</td>
+                    <td>
+                        <a href="index.html?id=${doc.id}" class="btn-view">檢視 / 下載 PDF</a>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }, (error) => {
+        console.error("讀取失敗：", error);
+        document.getElementById('case-list').innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">讀取失敗，請檢查 Firebase 規則！</td></tr>`;
+    });
 </script>
 
 </body>
