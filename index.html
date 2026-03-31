@@ -251,7 +251,7 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></div>
                 <div class="cell-content">
-                    姓名 NAMA：<input type="text" class="long-input"><br>
+                    姓名 NAMA：<input type="text" class="long-input" id="employerName"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
                     與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
                     與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
@@ -266,7 +266,7 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">被照顧人背景資料 <span class="indo">DATA PASIEN</span></div>
                 <div class="cell-content">
-                    姓名 NAMA：<input type="text" class="long-input"><br>
+                    姓名 NAMA：<input type="text" class="long-input" id="patientName"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
                     年齡 UMUR：<input type="text" style="width: 30px;"> 歲 THN<br>
                     配偶 PASANGAN：<label><input type="checkbox"> 有 ADA</label> <label><input type="checkbox"> 無 TIDAK</label><br>
@@ -438,8 +438,50 @@
         </tr>
     </table>
 
-    <button class="btn-print" onclick="window.print()">儲存 / 匯出成 PDF</button>
+    <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+    // 1. 請在這裡貼上您在 Firebase 後台取得的專屬金鑰設定
+    const firebaseConfig = {
+        apiKey: "請貼上您的_API_KEY",
+        authDomain: "請貼上您的_authDomain",
+        projectId: "請貼上您的_projectId",
+        storageBucket: "請貼上您的_storageBucket",
+        messagingSenderId: "請貼上您的_messagingSenderId",
+        appId: "請貼上您的_appId"
+    };
+
+    // 啟動 Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // 2. 儲存並列印的聯動功能
+    function saveDataAndPrint() {
+        // 抓取剛才設定的 id 欄位資料 (若沒填則顯示預設字眼)
+        const empName = document.getElementById('employerName').value || "未填寫雇主姓名";
+        const patName = document.getElementById('patientName').value || "未填寫病患姓名";
+
+        // 發送到 Firebase 雲端資料庫
+        db.collection("cases").add({
+            employerName: empName,
+            patientName: patName,
+            uploadDate: firebase.firestore.FieldValue.serverTimestamp() // 自動精準打卡
+        })
+        .then(() => {
+            // 雲端儲存成功後，無縫接軌打開列印畫面
+            console.log("資料已成功上傳雲端！");
+            window.print();
+        })
+        .catch((error) => {
+            // 萬一網路斷線，還是會跳出列印畫面讓您可以轉成 PDF
+            console.error("儲存發生錯誤: ", error);
+            alert("雲端連線似乎有狀況，但仍為您開啟列印畫面以便存檔！");
+            window.print();
+        });
+    }
+</script>
 </body>
 </html>
