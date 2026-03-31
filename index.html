@@ -84,14 +84,12 @@
             text-align: center;
         }
 
-        /* 標題下方的區塊級印尼文 */
         .indo {
             font-size: 11px;
             color: #555;
             display: block;
         }
         
-        /* 新增：專門給選項使用的行內印尼文（省空間且美觀） */
         .indo-inline {
             font-size: 11px;
             color: #666;
@@ -156,7 +154,6 @@
             width: 30%;
         }
 
-        /* 📱 手機版專屬響應式設定 */
         @media screen and (max-width: 768px) {
             body { padding: 10px; }
             .page-container { padding: 15px; }
@@ -185,7 +182,6 @@
             .signature-column { width: 100%; }
         }
         
-        /* 🖨️ 終極列印設定 */
         @page { size: A4 portrait; margin: 3mm; }
         @media print {
             body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; }
@@ -209,7 +205,6 @@
             input[type="checkbox"] { transform: scale(1); margin-right: 3px; }
             .indo { font-size: 8.5px; color: #333; line-height: 1.1; } 
             
-            /* 列印時將內聯印尼文字體進一步微縮，確保不折行 */
             .indo-inline { font-size: 8.5px; color: #444; margin-left: 2px; } 
 
             input[type="text"], input[type="number"] { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; height: 11px; margin: 0; }
@@ -251,7 +246,7 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">申請人背景資料 <span class="indo">DATA MAJIKAN</span></div>
                 <div class="cell-content">
-                    姓名 NAMA：<input type="text" class="long-input" id="employerName"><br>
+                    姓名 NAMA：<input type="text" class="long-input" id="employerName" value="鄭怡"><br>
                     <label><input type="checkbox"> 男 L</label> <label><input type="checkbox"> 女 P</label><br>
                     與被照顧人關係 HUBUNGAN DGN PASIEN：<input type="text" style="width: 140px;"><br>
                     與受顧照人同住 TINGGAL DGN PASIEN：<label><input type="checkbox"> 否 TIDAK</label> <label><input type="checkbox"> 是 YA</label><br>
@@ -393,7 +388,7 @@
         <tr>
             <td colspan="2">
                 <strong>●挑選女傭編號 PILIH NO INDUK●</strong><br>
-                １．<input type="text" class="long-input"><br>
+                １．<input type="text" class="long-input" value="DWI RAHAYU LARASATI"><br>
                 ２．<input type="text" class="long-input"><br>
                 ３．<input type="text" class="long-input"><br>
                 <div class="group-spacing">
@@ -412,7 +407,9 @@
                 ★為確保被照顧者的人身安全及被照顧品質,工人上班時間中禁止使用手機上網、講電話、視訊、戴耳機聽音樂！<br>
                 <span class="indo red-text">Untuk memastikan keselamatan pribadi orang yang dirawat dan kualitas layanan, pekerja dilarang menggunakan ponsel untuk menjelajahi Internet, berbicara di telepon, melakukan obrolan video, atau memakai headphone untuk mendengarkan musik selama jam kerja!</span><br>
                 ★請工人確定可以接受這個工作內容再來台灣工作,確定後來台灣一契約是三年（不能換工作、不能換僱主)！<br>
-                <span class="indo red-text">Pastikan pekerja dapat menerima konten pekerjaan sebelum mulai bekerja di Taiwan. Pastikan kontrak di Taiwan berlaku selama tiga tahun (Anda tidak dapat berganti pekerjaan atau majikan)!</span>
+                <span class="indo red-text">Pastikan pekerja dapat menerima konten pekerjaan sebelum mulai bekerja di Taiwan. Pastikan kontrak di Taiwan berlaku selama tiga tahun (Anda tidak dapat berganti pekerjaan atau majikan)!</span><br>
+                ★合約期間之各項福利依規定辦理，外勞須自行負擔回程機票！<br>
+                <span class="indo red-text">Fasilitas selama masa kontrak sesuai peraturan, dan pekerja wajib menanggung sendiri tiket pesawat pulang!</span>
             </td>
         </tr>
 
@@ -444,23 +441,23 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script>
-    // 1. 請在這裡貼上您在 Firebase 後台取得的專屬金鑰設定
+    // 您的專屬 Firebase 金鑰已經完美設定就緒！
     const firebaseConfig = {
-        apiKey: "請貼上您的_API_KEY",
-        authDomain: "請貼上您的_authDomain",
-        projectId: "請貼上您的_projectId",
-        storageBucket: "請貼上您的_storageBucket",
-        messagingSenderId: "請貼上您的_messagingSenderId",
-        appId: "請貼上您的_appId"
+        apiKey: "AIzaSyB-d8MPUsZKgNIdTdOD5SZcJd2EUaU6Vvc",
+        authDomain: "form-26dea.firebaseapp.com",
+        projectId: "form-26dea",
+        storageBucket: "form-26dea.firebasestorage.app",
+        messagingSenderId: "183216722077",
+        appId: "1:183216722077:web:d0ce91fd0baf749c794474",
+        measurementId: "G-DDLL1CP879"
     };
 
-    // 啟動 Firebase
+    // 啟動 Firebase 雲端連線
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // 2. 儲存並列印的聯動功能
+    // 儲存並自動呼叫列印的雙效能函數
     function saveDataAndPrint() {
-        // 抓取剛才設定的 id 欄位資料 (若沒填則顯示預設字眼)
         const empName = document.getElementById('employerName').value || "未填寫雇主姓名";
         const patName = document.getElementById('patientName').value || "未填寫病患姓名";
 
@@ -468,15 +465,13 @@
         db.collection("cases").add({
             employerName: empName,
             patientName: patName,
-            uploadDate: firebase.firestore.FieldValue.serverTimestamp() // 自動精準打卡
+            uploadDate: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(() => {
-            // 雲端儲存成功後，無縫接軌打開列印畫面
             console.log("資料已成功上傳雲端！");
             window.print();
         })
         .catch((error) => {
-            // 萬一網路斷線，還是會跳出列印畫面讓您可以轉成 PDF
             console.error("儲存發生錯誤: ", error);
             alert("雲端連線似乎有狀況，但仍為您開啟列印畫面以便存檔！");
             window.print();
