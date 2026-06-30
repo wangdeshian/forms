@@ -125,6 +125,22 @@
             color: red;
             font-weight: bold;
         }
+        .compact-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2px 10px;
+            margin: 2px 0 6px;
+        }
+        .compact-options label {
+            margin-right: 0;
+        }
+        .notice-list {
+            margin: 4px 0 0;
+            padding-left: 18px;
+        }
+        .notice-list li {
+            margin-bottom: 4px;
+        }
         .btn-print {
             display: block;
             width: 100%;
@@ -177,7 +193,8 @@
 
             input[type="text"], input[type="number"] { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
             input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; }
-            label { padding: 8px 0; margin-right: 15px; }
+            label { padding: 5px 0; margin-right: 12px; }
+            .compact-options { grid-template-columns: 1fr; gap: 0; }
             .signature-box { flex-direction: column; gap: 30px; }
             .signature-column { width: 100%; }
         }
@@ -297,36 +314,46 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></div>
                 <div class="cell-content">
-                    <label><input type="checkbox"> 癱瘓程度 <span class="indo-inline">Tingkat kelumpuhan：</span></label><br>
-                    　<label><input type="checkbox"> 上身癱瘓 <span class="indo-inline">Lumpuh separuh atas</span></label> 
-                    　<label><input type="checkbox"> 下身癱瘓 <span class="indo-inline">Lumpuh separuh bawah</span></label><br>
-                    　<label><input type="checkbox"> 頸椎以下癱瘓 <span class="indo-inline">Lumpuh bawah leher</span></label> 
-                    　<label><input type="checkbox"> 全身癱瘓 <span class="indo-inline">Lumpuh total</span></label><br>
+                    <label><input type="checkbox"> 癱瘓程度 <span class="indo-inline">Tingkat kelumpuhan：</span></label>
+                    <div class="compact-options">
+                        <label><input type="checkbox"> 上身癱瘓 <span class="indo-inline">Lumpuh separuh atas</span></label>
+                        <label><input type="checkbox"> 下身癱瘓 <span class="indo-inline">Lumpuh separuh bawah</span></label>
+                        <label><input type="checkbox"> 頸椎以下癱瘓 <span class="indo-inline">Lumpuh bawah leher</span></label>
+                        <label><input type="checkbox"> 全身癱瘓 <span class="indo-inline">Lumpuh total</span></label>
+                    </div>
                     
-                    <label><input type="checkbox"> 行動能力 <span class="indo-inline">Mobilitas：</span></label><br>
-                    　<label><input type="checkbox"> 自由行動 <span class="indo-inline">Bergerak bebas</span></label> 
-                    　<label><input type="checkbox"> 需扶持行走 <span class="indo-inline">Butuh bantuan berjalan</span></label><br>
-                    　<label><input type="checkbox"> 無法行走,需抱、移位 <span class="indo-inline">Tidak bisa jalan, harus digendong/pindah</span></label><br>
+                    <label><input type="checkbox"> 行動能力 <span class="indo-inline">Mobilitas：</span></label>
+                    <div class="compact-options">
+                        <label><input type="checkbox"> 自由行動 <span class="indo-inline">Bergerak bebas</span></label>
+                        <label><input type="checkbox"> 需扶持行走 <span class="indo-inline">Butuh bantuan berjalan</span></label>
+                        <label><input type="checkbox"> 無法行走,需抱、移位 <span class="indo-inline">Tidak bisa jalan, harus digendong/pindah</span></label>
+                    </div>
                     
-                    <label><input type="checkbox"> 意識狀態 <span class="indo-inline">Keadaan sadar：</span></label><br>
-                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
-                    　<label><input type="checkbox"> 只能簡單對話 <span class="indo-inline">Hanya obrolan sederhana</span></label><br>
-                    　<label><input type="checkbox"> 有意識但無法表達 <span class="indo-inline">Sadar tapi tidak bisa bicara</span></label> 
-                    　<label><input type="checkbox"> 無意識 <span class="indo-inline">Tidak sadar</span></label><br>
+                    <label><input type="checkbox"> 意識狀態 <span class="indo-inline">Keadaan sadar：</span></label>
+                    <div class="compact-options">
+                        <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
+                        <label><input type="checkbox"> 只能簡單對話 <span class="indo-inline">Hanya obrolan sederhana</span></label>
+                        <label><input type="checkbox"> 有意識但無法表達 <span class="indo-inline">Sadar tapi tidak bisa bicara</span></label>
+                        <label><input type="checkbox"> 無意識 <span class="indo-inline">Tidak sadar</span></label>
+                    </div>
                     
-                    <label><input type="checkbox"> 排便能力 (BAB)：</label><br>
-                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
-                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
-                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
-                    <label><input type="checkbox"> 軟便劑 <span class="indo-inline">Pelunak BAB</span></label><br>
-                    　<label><input type="checkbox"> 需協助挖大便 <span class="indo-inline">Butuh bantuan mengeluarkan BAB</span></label><br>
+                    <label><input type="checkbox"> 排便能力 (BAB)：</label>
+                    <div class="compact-options">
+                        <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
+                        <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label>
+                        <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label>
+                        <label><input type="checkbox"> 軟便劑 <span class="indo-inline">Pelunak BAB</span></label>
+                        <label><input type="checkbox"> 需協助挖大便 <span class="indo-inline">Butuh bantuan mengeluarkan BAB</span></label>
+                    </div>
                     
-                    <label><input type="checkbox"> 排尿能力 (Urin)：</label><br>
-                    　<label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label> 
-                    <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label> 
-                    <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label> 
-                    <label><input type="checkbox"> 尿袋 <span class="indo-inline">Kantong urin</span></label><br>
-                    　<label><input type="checkbox"> 需協助使用導尿管 <span class="indo-inline">Perlu bantuan pakai kateter urin</span></label>
+                    <label><input type="checkbox"> 排尿能力 (Urin)：</label>
+                    <div class="compact-options">
+                        <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
+                        <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label>
+                        <label><input type="checkbox"> 尿布 <span class="indo-inline">Popok</span></label>
+                        <label><input type="checkbox"> 尿袋 <span class="indo-inline">Kantong urin</span></label>
+                        <label><input type="checkbox"> 需協助使用導尿管 <span class="indo-inline">Perlu bantuan pakai kateter urin</span></label>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -402,14 +429,12 @@
             </td>
             <td colspan="2" class="red-text">
                 ●外勞工作內容說明 / PEKERJAAN KHUSUS●<br>
-                ★會以願意三年不休假為優先考慮聘僱！<br>
-                <span class="indo red-text">Diutamakan mereka yang bersedia tidak libur selama tiga tahun!</span><br>
-                ★為確保被照顧者的人身安全及被照顧品質,工人上班時間中禁止使用手機上網、講電話、視訊、戴耳機聽音樂！<br>
-                <span class="indo red-text">Untuk memastikan keselamatan pribadi orang yang dirawat dan kualitas layanan, pekerja dilarang menggunakan ponsel untuk menjelajahi Internet, berbicara di telepon, melakukan obrolan video, atau memakai headphone untuk mendengarkan musik selama jam kerja!</span><br>
-                ★請工人確定可以接受這個工作內容再來台灣工作,確定後來台灣一契約是三年（不能換工作、不能換僱主)！<br>
-                <span class="indo red-text">Pastikan pekerja dapat menerima konten pekerjaan sebelum mulai bekerja di Taiwan. Pastikan kontrak di Taiwan berlaku selama tiga tahun (Anda tidak dapat berganti pekerjaan atau majikan)!</span><br>
-                ★合約期間之各項福利依規定辦理，外勞提前離境須自行負擔回程機票！<br>
-                <span class="indo red-text">Fasilitas selama masa kontrak sesuai peraturan, jika pekerja pulang lebih awal maka wajib menanggung sendiri tiket pesawat pulang!</span>
+                <ul class="notice-list">
+                    <li>優先聘僱願意三年不休假者。<span class="indo red-text">Diutamakan pekerja yang bersedia tidak libur selama tiga tahun.</span></li>
+                    <li>上班時間禁止使用手機、視訊或戴耳機。<span class="indo red-text">Saat kerja dilarang memakai ponsel, video call, atau headset.</span></li>
+                    <li>確認可接受工作內容後再來台，契約期間不得更換工作或僱主。<span class="indo red-text">Pastikan menerima pekerjaan ini sebelum datang ke Taiwan; selama kontrak tidak boleh ganti pekerjaan atau majikan.</span></li>
+                    <li>福利依規定辦理，提前離境須自行負擔回程機票。<span class="indo red-text">Fasilitas sesuai peraturan; pulang lebih awal wajib menanggung tiket pulang sendiri.</span></li>
+                </ul>
             </td>
         </tr>
 
