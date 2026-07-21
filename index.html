@@ -214,6 +214,12 @@
             background: #fff7ed;
             border-left: 4px solid #f97316;
         }
+        .nursing-note {
+            margin: 4px 0;
+            padding: 6px 8px;
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+        }
 
         @media screen and (max-width: 768px) {
             body { padding: 10px; }
@@ -286,6 +292,7 @@
     <div class="form-tabs" role="tablist" aria-label="聘工表類型">
         <button type="button" class="form-tab active" id="caregiverTab" role="tab" aria-selected="true" aria-controls="caregiverForm" onclick="switchForm('caregiver')">看護工／家庭幫傭</button>
         <button type="button" class="form-tab" id="manufacturingTab" role="tab" aria-selected="false" aria-controls="manufacturingForm" onclick="switchForm('manufacturing')">製造業</button>
+        <button type="button" class="form-tab" id="nursingHomeTab" role="tab" aria-selected="false" aria-controls="nursingHomeForm" onclick="switchForm('nursing_home')">護理之家</button>
     </div>
 
     <div id="caregiverForm" class="form-panel active" role="tabpanel" aria-labelledby="caregiverTab">
@@ -794,6 +801,200 @@
 
         <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
     </div>
+
+    <div id="nursingHomeForm" class="form-panel" role="tabpanel" aria-labelledby="nursingHomeTab">
+        <div class="header-container">
+            <div class="header-spacer"></div>
+            <div class="header-center">
+                <h1>聯捷人力仲介有限公司 Linkjet Manpower CO., LTD</h1>
+                <h2>護理之家外國勞工聘工詳情表 FORMULIR PEKERJA PANTI JOMPO</h2>
+            </div>
+            <div class="header-right">
+                <label><input type="checkbox"> 護理之家</label>
+                <label><input type="checkbox"> 長照機構</label>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td colspan="4">
+                    申請類別：
+                    <label><input type="checkbox"> 初次招募</label>
+                    <label><input type="checkbox"> 重新招募</label>
+                    <label><input type="checkbox"> 遞補</label>
+                    <span style="margin-left: 15px; display: inline-block;">預計到工日：<input type="text" style="width: 40px;"> 年 <input type="text" style="width: 25px;"> 月 <input type="text" style="width: 25px;"> 日</span>
+                    <span style="margin-left: 15px; display: inline-block;">需求人數：<input type="number" style="width: 35px;"> 人</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">機構基本資料 <span class="indo">DATA INSTITUSI</span></div>
+                    <div class="cell-content">
+                        機構名稱 NAMA INSTITUSI：<input type="text" class="long-input" id="nursingHomeEmployerName"><br>
+                        設立許可／統一編號：<input type="text" style="width: 150px;"><br>
+                        機構地址 ALAMAT：<input type="text" class="long-input"><br>
+                        聯絡人：<input type="text" style="width: 100px;">　電話：<input type="text" style="width: 120px;"><br>
+                        機構類型：<label><input type="checkbox"> 一般護理之家</label><label><input type="checkbox"> 精神護理之家</label><label><input type="checkbox"> 長照機構</label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">職缺與照護單位資料 <span class="indo">DATA LOWONGAN DAN UNIT</span></div>
+                    <div class="cell-content">
+                        單位／職缺名稱：<input type="text" class="long-input" id="nursingHomeJobName"><br>
+                        工作樓層／區域：<input type="text" style="width: 140px;">　職稱：<input type="text" style="width: 120px;"><br>
+                        核定床數：<input type="number" style="width: 40px;"> 床　目前住民：<input type="number" style="width: 40px;"> 人<br>
+                        每班住民約：<input type="number" style="width: 40px;"> 人　每班照護人力：<input type="number" style="width: 40px;"> 人<br>
+                        職務性質：<label><input type="checkbox"> 固定照護區</label><label><input type="checkbox"> 依單位調度</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">住民照護型態 <span class="indo">KONDISI PENGHUNI</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 可自行行動 <span class="indo-inline">Mandiri</span></label>
+                        <label><input type="checkbox"> 需攙扶行走 <span class="indo-inline">Perlu dibantu berjalan</span></label>
+                        <label><input type="checkbox"> 輪椅住民 <span class="indo-inline">Kursi roda</span></label>
+                        <label><input type="checkbox"> 長期臥床 <span class="indo-inline">Tirah baring</span></label>
+                        <label><input type="checkbox"> 失智／認知障礙 <span class="indo-inline">Demensia</span></label>
+                        <label><input type="checkbox"> 精神行為症狀 <span class="indo-inline">Gangguan perilaku</span></label>
+                        <label><input type="checkbox"> 吞嚥困難 <span class="indo-inline">Sulit menelan</span></label>
+                        <label><input type="checkbox"> 鼻胃管灌食 <span class="indo-inline">Selang NGT</span></label>
+                        <label><input type="checkbox"> 氣切／抽痰需求 <span class="indo-inline">Trakeostomi/sedot dahak</span></label>
+                        <label><input type="checkbox"> 導尿管／造口 <span class="indo-inline">Kateter/stoma</span></label>
+                        <label><input type="checkbox"> 洗腎／定期就醫 <span class="indo-inline">Dialisis/kontrol rutin</span></label>
+                        <label><input type="checkbox"> 安寧／末期照護 <span class="indo-inline">Perawatan paliatif</span></label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">主要照護工作 <span class="indo">TUGAS PERAWATAN UTAMA</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 協助起居與更衣 <span class="indo-inline">Bantu aktivitas harian</span></label>
+                        <label><input type="checkbox"> 協助洗澡／擦澡 <span class="indo-inline">Bantu mandi</span></label>
+                        <label><input type="checkbox"> 餵食／飲水協助 <span class="indo-inline">Bantu makan/minum</span></label>
+                        <label><input type="checkbox"> 如廁／尿布更換 <span class="indo-inline">Toilet/ganti popok</span></label>
+                        <label><input type="checkbox"> 翻身／拍背 <span class="indo-inline">Balik badan/tepuk punggung</span></label>
+                        <label><input type="checkbox"> 抱扶／移位 <span class="indo-inline">Angkat/pindahkan</span></label>
+                        <label><input type="checkbox"> 輪椅推送／陪同活動 <span class="indo-inline">Dorong kursi roda</span></label>
+                        <label><input type="checkbox"> 量測生命徵象 <span class="indo-inline">Ukur tanda vital</span></label>
+                        <label><input type="checkbox"> 依指示協助管灌 <span class="indo-inline">Bantu makan lewat selang</span></label>
+                        <label><input type="checkbox"> 紀錄與異常回報 <span class="indo-inline">Catat dan lapor</span></label>
+                        <label><input type="checkbox"> 寢具整理／環境清潔 <span class="indo-inline">Rapikan tempat tidur</span></label>
+                        <label><input type="checkbox"> 陪同就醫／復健 <span class="indo-inline">Dampingi berobat/rehab</span></label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">工作環境與體力負荷 <span class="indo">LINGKUNGAN DAN BEBAN KERJA</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 室內照護區 <span class="indo-inline">Dalam ruangan</span></label>
+                        <label><input type="checkbox"> 冷氣環境 <span class="indo-inline">Ber-AC</span></label>
+                        <label><input type="checkbox"> 潮濕／浴室作業 <span class="indo-inline">Area basah</span></label>
+                        <label><input type="checkbox"> 異味／排泄物處理 <span class="indo-inline">Bau/kotoran</span></label>
+                        <label><input type="checkbox"> 感染風險區域 <span class="indo-inline">Risiko infeksi</span></label>
+                        <label><input type="checkbox"> 需長時間站立／走動 <span class="indo-inline">Berdiri/berjalan lama</span></label>
+                        <label><input type="checkbox"> 需頻繁彎腰／蹲姿 <span class="indo-inline">Sering membungkuk</span></label>
+                        <label><input type="checkbox"> 需協助移位重度住民 <span class="indo-inline">Pindah penghuni berat</span></label>
+                        <label><input type="checkbox"> 使用移位機／輔具 <span class="indo-inline">Alat pemindah</span></label>
+                        <label><input type="checkbox"> 可能接觸情緒／攻擊行為 <span class="indo-inline">Perilaku agresif</span></label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">感染管制與安全防護 <span class="indo">PENCEGAHAN INFEKSI DAN KESELAMATAN</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 口罩</label>
+                        <label><input type="checkbox"> 防護手套</label>
+                        <label><input type="checkbox"> 隔離衣／防護衣</label>
+                        <label><input type="checkbox"> 護目鏡／面罩</label>
+                        <label><input type="checkbox"> 洗手與消毒規範</label>
+                        <label><input type="checkbox"> 隔離照護訓練</label>
+                        <label><input type="checkbox"> 移位與防跌訓練</label>
+                        <label><input type="checkbox"> 緊急事件通報訓練</label>
+                    </div>
+                    <div class="nursing-note">機構應提供必要防護具、感染管制及職業安全訓練；照服員不得執行依法應由醫事專業人員執行的醫療行為。</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">班別、工時與休假 <span class="indo">SHIFT, JAM KERJA DAN LIBUR</span></div>
+                    <div class="cell-content">
+                        班別：<label><input type="checkbox"> 固定日班</label><label><input type="checkbox"> 固定夜班</label><label><input type="checkbox"> 三班輪班</label><label><input type="checkbox"> 兩班輪班</label><br>
+                        班制：<label><input type="checkbox"> 8 小時</label><label><input type="checkbox"> 12 小時</label><label><input type="checkbox"> 其他：<input type="text" style="width: 70px;"></label><br>
+                        上班時間：<input type="text" style="width: 70px;"> 至 <input type="text" style="width: 70px;">　休息：<input type="number" style="width: 35px;"> 分鐘<br>
+                        夜班頻率：每月約 <input type="number" style="width: 35px;"> 班　休息日：每月約 <input type="number" style="width: 35px;"> 日<br>
+                        加班：<label><input type="checkbox"> 經常</label><label><input type="checkbox"> 偶爾</label><label><input type="checkbox"> 緊急支援</label><label><input type="checkbox"> 無</label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">薪資與給付 <span class="indo">GAJI DAN TUNJANGAN</span></div>
+                    <div class="cell-content">
+                        每月經常性薪資：新臺幣 <input type="number" style="width: 90px;"> 元<br>
+                        加班費：<label><input type="checkbox"> 依法計算</label><label><input type="checkbox"> 其他：<input type="text" style="width: 90px;"></label><br>
+                        夜班津貼：每班 <input type="number" style="width: 70px;"> 元　其他津貼：<input type="text" style="width: 120px;"><br>
+                        發薪日：每月 <input type="number" style="width: 35px;"> 日　方式：<label><input type="checkbox"> 轉帳</label><label><input type="checkbox"> 現金</label><br>
+                        勞保／健保／職災保險：<label><input type="checkbox"> 依法辦理</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">住宿、膳食與交通 <span class="indo">ASRAMA, MAKAN DAN TRANSPORTASI</span></div>
+                    <div class="cell-content">
+                        住宿：<label><input type="checkbox"> 機構宿舍</label><label><input type="checkbox"> 外部宿舍</label><label><input type="checkbox"> 自理</label><br>
+                        每房 <input type="number" style="width: 35px;"> 人　住宿地至機構約 <input type="number" style="width: 40px;"> 分鐘<br>
+                        膳食：<label><input type="checkbox"> 機構供餐</label><label><input type="checkbox"> 伙食津貼</label><label><input type="checkbox"> 自理</label><br>
+                        交通：<label><input type="checkbox"> 步行</label><label><input type="checkbox"> 接駁</label><label><input type="checkbox"> 自行騎車</label><br>
+                        膳宿費／代扣項目：<input type="text" class="long-input">
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">期望工人條件 <span class="indo">KRITERIA PEKERJA</span></div>
+                    <div class="cell-content">
+                        性別：<label><input type="checkbox"> 不拘</label><label><input type="checkbox"> 男</label><label><input type="checkbox"> 女</label><br>
+                        年齡：<input type="number" style="width: 35px;"> 至 <input type="number" style="width: 35px;"> 歲<br>
+                        經驗：<label><input type="checkbox"> 無經驗可</label><label><input type="checkbox"> 機構照護經驗</label><label><input type="checkbox"> 重症照護經驗</label><br>
+                        能力：<label><input type="checkbox"> 基本中文</label><label><input type="checkbox"> 可書寫紀錄</label><label><input type="checkbox"> 可配合夜班</label><br>
+                        證照／訓練：<label><input type="checkbox"> 照顧服務員訓練</label><label><input type="checkbox"> CPR／急救</label><br>
+                        其他條件：<input type="text" class="long-input">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4" class="cell-no-pad">
+                    <div class="section-title">其他工作說明與注意事項 <span class="indo">KETERANGAN DAN PERHATIAN</span></div>
+                    <div class="cell-content">
+                        <textarea placeholder="請填寫住民照護特性、實際每班工作流程、人力配置、特殊感染風險、夜班內容或其他應事先說明事項。"></textarea>
+                        <ul class="notice-list">
+                            <li>實際工時、休息、例假、休假及加班費依勞動法令與勞動契約辦理。</li>
+                            <li>照護工作應依機構標準作業程序及護理、醫事專業人員指示辦理。</li>
+                            <li>住民身體、情緒或生命徵象如有異常，應立即依機構流程通報，不得自行處置。</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4">
+                    <strong>●請詳閱並確認上述照護內容、工作環境及工作條件後簽名●</strong>
+                    <span class="indo">Harap membaca dan menyetujui tugas perawatan, lingkungan, dan kondisi kerja sebelum menandatangani.</span>
+                    <div class="signature-box">
+                        <div class="signature-column"><hr style="border-top: 1px solid #000; margin-bottom: 2px;">機構代表簽名<br><span class="indo">TANDA TANGAN INSTITUSI</span></div>
+                        <div class="signature-column"><hr style="border-top: 1px solid #000; margin-bottom: 2px;">工人簽名／指紋<br><span class="indo">TANDA TANGAN / SIDIK JARI</span></div>
+                        <div class="signature-column">填表日期：<input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
+    </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -816,30 +1017,39 @@
 
     function switchForm(formType) {
         activeFormType = formType;
-        const isCaregiver = formType === 'caregiver';
-        document.getElementById('caregiverForm').classList.toggle('active', isCaregiver);
-        document.getElementById('manufacturingForm').classList.toggle('active', !isCaregiver);
-        document.getElementById('caregiverTab').classList.toggle('active', isCaregiver);
-        document.getElementById('manufacturingTab').classList.toggle('active', !isCaregiver);
-        document.getElementById('caregiverTab').setAttribute('aria-selected', String(isCaregiver));
-        document.getElementById('manufacturingTab').setAttribute('aria-selected', String(!isCaregiver));
-        document.title = isCaregiver ? '印尼勞工看護工詳情表' : '製造業外國勞工聘工詳情表';
+        const formConfig = {
+            caregiver: { panel: 'caregiverForm', tab: 'caregiverTab', title: '印尼勞工看護工詳情表' },
+            manufacturing: { panel: 'manufacturingForm', tab: 'manufacturingTab', title: '製造業外國勞工聘工詳情表' },
+            nursing_home: { panel: 'nursingHomeForm', tab: 'nursingHomeTab', title: '護理之家外國勞工聘工詳情表' }
+        };
+        Object.values(formConfig).forEach(config => {
+            const isActive = config === formConfig[formType];
+            document.getElementById(config.panel).classList.toggle('active', isActive);
+            document.getElementById(config.tab).classList.toggle('active', isActive);
+            document.getElementById(config.tab).setAttribute('aria-selected', String(isActive));
+        });
+        document.title = formConfig[formType].title;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function saveDataAndPrint() {
         const isManufacturing = activeFormType === 'manufacturing';
-        const empName = isManufacturing
-            ? (document.getElementById('manufacturerEmployerName').value || "未填寫公司名稱")
-            : (document.getElementById('employerName').value || "未填寫雇主姓名");
-        const patName = isManufacturing
-            ? (document.getElementById('manufacturingJobName').value || "未填寫工廠／職缺名稱")
-            : (document.getElementById('patientName').value || "未填寫病患姓名");
+        const isNursingHome = activeFormType === 'nursing_home';
+        let empName = document.getElementById('employerName').value || "未填寫雇主姓名";
+        let patName = document.getElementById('patientName').value || "未填寫病患姓名";
+
+        if (isManufacturing) {
+            empName = document.getElementById('manufacturerEmployerName').value || "未填寫公司名稱";
+            patName = document.getElementById('manufacturingJobName').value || "未填寫工廠／職缺名稱";
+        } else if (isNursingHome) {
+            empName = document.getElementById('nursingHomeEmployerName').value || "未填寫機構名稱";
+            patName = document.getElementById('nursingHomeJobName').value || "未填寫單位／職缺名稱";
+        }
 
         db.collection("cases").add({
             employerName: empName,
             patientName: patName,
-            formType: isManufacturing ? 'manufacturing' : 'caregiver',
+            formType: activeFormType,
             uploadDate: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(() => {

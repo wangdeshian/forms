@@ -14,6 +14,7 @@
         .btn-download:hover { background: #0056b3; }
         .type-badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 12px; font-weight: bold; background: #e2e8f0; color: #334155; }
         .type-badge.manufacturing { background: #dbeafe; color: #1d4ed8; }
+        .type-badge.nursing-home { background: #dcfce7; color: #15803d; }
     </style>
 </head>
 <body>
@@ -61,10 +62,12 @@
             const res = doc.data();
             const date = res.uploadDate ? new Date(res.uploadDate.seconds * 1000).toLocaleDateString() : "-";
             const isManufacturing = res.formType === 'manufacturing';
-            const typeLabel = isManufacturing ? '製造業' : '看護工／家庭幫傭';
+            const isNursingHome = res.formType === 'nursing_home';
+            const typeLabel = isManufacturing ? '製造業' : (isNursingHome ? '護理之家' : '看護工／家庭幫傭');
+            const typeClass = isManufacturing ? 'manufacturing' : (isNursingHome ? 'nursing-home' : '');
             body.innerHTML += `
                 <tr>
-                    <td><span class="type-badge ${isManufacturing ? 'manufacturing' : ''}">${typeLabel}</span></td>
+                    <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
                     <td>${res.employerName}</td>
                     <td>${res.patientName}</td>
                     <td>${date}</td>
