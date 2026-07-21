@@ -12,6 +12,8 @@
         th { background: #f8f9fa; }
         .btn-download { background: #007bff; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; cursor: pointer; border: none; }
         .btn-download:hover { background: #0056b3; }
+        .type-badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 12px; font-weight: bold; background: #e2e8f0; color: #334155; }
+        .type-badge.manufacturing { background: #dbeafe; color: #1d4ed8; }
     </style>
 </head>
 <body>
@@ -21,14 +23,15 @@
     <table>
         <thead>
             <tr>
-                <th>雇主姓名</th>
-                <th>被照顧人</th>
+                <th>表單類型</th>
+                <th>雇主／公司名稱</th>
+                <th>被照顧人／職缺名稱</th>
                 <th>上傳日期</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody id="list-body">
-            <tr><td colspan="4">讀取中...</td></tr>
+            <tr><td colspan="5">讀取中...</td></tr>
         </tbody>
     </table>
 </div>
@@ -57,8 +60,11 @@
         snapshot.forEach(doc => {
             const res = doc.data();
             const date = res.uploadDate ? new Date(res.uploadDate.seconds * 1000).toLocaleDateString() : "-";
+            const isManufacturing = res.formType === 'manufacturing';
+            const typeLabel = isManufacturing ? '製造業' : '看護工／家庭幫傭';
             body.innerHTML += `
                 <tr>
+                    <td><span class="type-badge ${isManufacturing ? 'manufacturing' : ''}">${typeLabel}</span></td>
                     <td>${res.employerName}</td>
                     <td>${res.patientName}</td>
                     <td>${date}</td>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>印尼勞工看護工詳情表</title>
+    <title>外國勞工聘工詳情表</title>
     <style>
         body {
             font-family: "Microsoft JhengHei", sans-serif;
@@ -20,6 +20,34 @@
             padding: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+
+        .form-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 6px;
+            background: #e9edf2;
+            border-radius: 10px;
+        }
+        .form-tab {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            background: transparent;
+            color: #334155;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .form-tab.active {
+            background: #0056b3;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 86, 179, 0.25);
+        }
+        .form-panel { display: none; }
+        .form-panel.active { display: block; }
         
         .header-container {
             display: flex;
@@ -98,7 +126,7 @@
             font-weight: normal;
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"], input[type="number"], select, textarea {
             border: none;
             border-bottom: 1px solid #666;
             width: 80px;
@@ -106,6 +134,16 @@
             font-size: 13px;
             padding: 1px;
             background: transparent;
+        }
+        select {
+            width: auto;
+            min-width: 90px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 48px;
+            box-sizing: border-box;
+            resize: vertical;
         }
         input[type="text"].long-input {
             width: 80%;
@@ -170,6 +208,13 @@
             width: 30%;
         }
 
+        .manufacturing-note {
+            margin: 4px 0;
+            padding: 6px 8px;
+            background: #fff7ed;
+            border-left: 4px solid #f97316;
+        }
+
         @media screen and (max-width: 768px) {
             body { padding: 10px; }
             .page-container { padding: 15px; }
@@ -191,7 +236,7 @@
             .section-title .indo, .section-title-full .indo { color: #e0e0e0; }
             .cell-content { padding: 5px 5px 15px 5px; border-bottom: 1px solid #ddd; }
 
-            input[type="text"], input[type="number"] { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
+            input[type="text"], input[type="number"], select, textarea { font-size: 16px; padding: 4px; margin-top: 4px; margin-bottom: 4px; }
             input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; }
             label { padding: 5px 0; margin-right: 12px; }
             .compact-options { grid-template-columns: 1fr; gap: 0; }
@@ -203,7 +248,9 @@
         @media print {
             body { background: #fff; padding: 0; font-size: 10.5px; zoom: 0.95; }
             .page-container { box-shadow: none; padding: 0; max-width: 100%; }
-            .btn-print { display: none; }
+            .form-tabs, .btn-print { display: none !important; }
+            .form-panel { display: none !important; }
+            .form-panel.active { display: block !important; }
             .header-container { margin-bottom: 2px; }
             .header-center h1 { font-size: 15px; margin: 0; }
             .header-center h2 { font-size: 12px; margin: 2px 0 0 0; }
@@ -224,7 +271,9 @@
             
             .indo-inline { font-size: 8.5px; color: #444; margin-left: 2px; } 
 
-            input[type="text"], input[type="number"] { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; height: 11px; margin: 0; }
+            input[type="text"], input[type="number"], select, textarea { border-bottom: 1px solid #000; font-size: 10.5px; padding: 0px; margin: 0; }
+            input[type="text"], input[type="number"], select { height: 11px; }
+            textarea { min-height: 28px; resize: none; }
             .group-spacing { margin-top: 2px; }
             .signature-box { flex-direction: row; gap: 0; }
             .signature-column { width: 30%; }
@@ -234,6 +283,12 @@
 <body>
 
 <div class="page-container">
+    <div class="form-tabs" role="tablist" aria-label="聘工表類型">
+        <button type="button" class="form-tab active" id="caregiverTab" role="tab" aria-selected="true" aria-controls="caregiverForm" onclick="switchForm('caregiver')">看護工／家庭幫傭</button>
+        <button type="button" class="form-tab" id="manufacturingTab" role="tab" aria-selected="false" aria-controls="manufacturingForm" onclick="switchForm('manufacturing')">製造業</button>
+    </div>
+
+    <div id="caregiverForm" class="form-panel active" role="tabpanel" aria-labelledby="caregiverTab">
     
     <div class="header-container">
         <div class="header-spacer"></div>
@@ -548,6 +603,197 @@
     </table>
 
     <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
+    </div>
+
+    <div id="manufacturingForm" class="form-panel" role="tabpanel" aria-labelledby="manufacturingTab">
+        <div class="header-container">
+            <div class="header-spacer"></div>
+            <div class="header-center">
+                <h1>聯捷人力仲介有限公司 Linkjet Manpower CO., LTD</h1>
+                <h2>製造業外國勞工聘工詳情表 FORMULIR PEKERJA MANUFAKTUR</h2>
+            </div>
+            <div class="header-right">
+                <label><input type="checkbox"> 一般製造業</label>
+                <label><input type="checkbox"> 重大投資案</label>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td colspan="4">
+                    申請類別：
+                    <label><input type="checkbox"> 初次招募</label>
+                    <label><input type="checkbox"> 重新招募</label>
+                    <label><input type="checkbox"> 遞補</label>
+                    <span style="margin-left: 15px; display: inline-block;">預計到工日：<input type="text" style="width: 40px;"> 年 <input type="text" style="width: 25px;"> 月 <input type="text" style="width: 25px;"> 日</span>
+                    <span style="margin-left: 15px; display: inline-block;">需求人數：<input type="number" style="width: 35px;"> 人</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">公司基本資料 <span class="indo">DATA PERUSAHAAN</span></div>
+                    <div class="cell-content">
+                        公司名稱 NAMA PERUSAHAAN：<input type="text" class="long-input" id="manufacturerEmployerName"><br>
+                        統一編號：<input type="text" style="width: 120px;"><br>
+                        公司地址 ALAMAT：<input type="text" class="long-input"><br>
+                        聯絡人：<input type="text" style="width: 100px;">　電話：<input type="text" style="width: 120px;"><br>
+                        主要產品 PRODUK UTAMA：<input type="text" class="long-input">
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">職缺基本資料 <span class="indo">DATA LOWONGAN KERJA</span></div>
+                    <div class="cell-content">
+                        工廠／職缺名稱：<input type="text" class="long-input" id="manufacturingJobName"><br>
+                        工作地址 TEMPAT KERJA：<input type="text" class="long-input"><br>
+                        工作部門：<input type="text" style="width: 120px;">　職稱：<input type="text" style="width: 120px;"><br>
+                        契約期間：<input type="text" style="width: 40px;"> 年　試用期：<input type="text" style="width: 40px;"> 天<br>
+                        職缺性質：<label><input type="checkbox"> 固定職務</label><label><input type="checkbox"> 依產線調度</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">工作內容 <span class="indo">ISI PEKERJAAN</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 機台操作 <span class="indo-inline">Operator mesin</span></label>
+                        <label><input type="checkbox"> 生產線組裝 <span class="indo-inline">Perakitan</span></label>
+                        <label><input type="checkbox"> 包裝／裝箱 <span class="indo-inline">Pengemasan</span></label>
+                        <label><input type="checkbox"> 品質檢驗 <span class="indo-inline">Pemeriksaan kualitas</span></label>
+                        <label><input type="checkbox"> 原料準備 <span class="indo-inline">Persiapan bahan</span></label>
+                        <label><input type="checkbox"> 搬運／上下料 <span class="indo-inline">Angkut bahan</span></label>
+                        <label><input type="checkbox"> 倉儲理貨 <span class="indo-inline">Pergudangan</span></label>
+                        <label><input type="checkbox"> 清潔與整理 <span class="indo-inline">Kebersihan area</span></label>
+                        <label><input type="checkbox"> 簡易保養 <span class="indo-inline">Perawatan sederhana</span></label>
+                        <label><input type="checkbox"> 其他：<input type="text" style="width: 100px;"></label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">工作型態與體力條件 <span class="indo">POLA DAN KONDISI KERJA</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 久站 <span class="indo-inline">Berdiri lama</span></label>
+                        <label><input type="checkbox"> 久坐 <span class="indo-inline">Duduk lama</span></label>
+                        <label><input type="checkbox"> 重複性動作 <span class="indo-inline">Gerakan berulang</span></label>
+                        <label><input type="checkbox"> 需彎腰／蹲姿 <span class="indo-inline">Membungkuk/jongkok</span></label>
+                        <label><input type="checkbox"> 需爬梯／高處作業 <span class="indo-inline">Kerja di ketinggian</span></label>
+                        <label><input type="checkbox"> 需配合搬重物 <span class="indo-inline">Mengangkat beban</span></label>
+                        <label>單人搬運約 <input type="number" style="width: 40px;"> 公斤</label>
+                        <label><input type="checkbox"> 需通過體檢／職安訓練</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">工作環境 <span class="indo">LINGKUNGAN KERJA</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 室內廠房 <span class="indo-inline">Dalam ruangan</span></label>
+                        <label><input type="checkbox"> 戶外作業 <span class="indo-inline">Luar ruangan</span></label>
+                        <label><input type="checkbox"> 冷氣房 <span class="indo-inline">Ber-AC</span></label>
+                        <label><input type="checkbox"> 高溫／悶熱 <span class="indo-inline">Panas</span></label>
+                        <label><input type="checkbox"> 低溫／冷凍 <span class="indo-inline">Dingin/beku</span></label>
+                        <label><input type="checkbox"> 潮濕 <span class="indo-inline">Lembap</span></label>
+                        <label><input type="checkbox"> 粉塵 <span class="indo-inline">Debu</span></label>
+                        <label><input type="checkbox"> 噪音 <span class="indo-inline">Bising</span></label>
+                        <label><input type="checkbox"> 氣味／油煙 <span class="indo-inline">Bau/asap minyak</span></label>
+                        <label><input type="checkbox"> 化學品接觸 <span class="indo-inline">Bahan kimia</span></label>
+                        <label><input type="checkbox"> 無塵室 <span class="indo-inline">Ruang bersih</span></label>
+                        <label><input type="checkbox"> 潮濕地面／水區 <span class="indo-inline">Area basah</span></label>
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">安全防護 <span class="indo">KESELAMATAN KERJA</span></div>
+                    <div class="cell-content compact-options">
+                        <label><input type="checkbox"> 安全帽</label>
+                        <label><input type="checkbox"> 安全鞋</label>
+                        <label><input type="checkbox"> 防護手套</label>
+                        <label><input type="checkbox"> 護目鏡／面罩</label>
+                        <label><input type="checkbox"> 耳塞／耳罩</label>
+                        <label><input type="checkbox"> 口罩／呼吸防護</label>
+                        <label><input type="checkbox"> 防護衣／無塵衣</label>
+                        <label><input type="checkbox"> 安全帶</label>
+                    </div>
+                    <div class="manufacturing-note">公司應提供必要個人防護具、職業安全衛生教育訓練及符合規定的作業環境。</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">工時與休假 <span class="indo">JAM KERJA DAN LIBUR</span></div>
+                    <div class="cell-content">
+                        班別：<label><input type="checkbox"> 固定日班</label><label><input type="checkbox"> 固定夜班</label><label><input type="checkbox"> 輪班</label><br>
+                        每日工作：<input type="number" style="width: 40px;"> 小時　每週：<input type="number" style="width: 40px;"> 天<br>
+                        上班時間：<input type="text" style="width: 70px;"> 至 <input type="text" style="width: 70px;"><br>
+                        休息時間：<input type="text" style="width: 70px;"> 分鐘　休息日：<input type="text" style="width: 100px;"><br>
+                        加班：<label><input type="checkbox"> 經常</label><label><input type="checkbox"> 偶爾</label><label><input type="checkbox"> 依訂單需求</label><label><input type="checkbox"> 無</label><br>
+                        加班約：每日 <input type="number" style="width: 35px;"> 小時／每月 <input type="number" style="width: 35px;"> 小時
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">薪資與給付 <span class="indo">GAJI DAN TUNJANGAN</span></div>
+                    <div class="cell-content">
+                        每月經常性薪資：新臺幣 <input type="number" style="width: 90px;"> 元<br>
+                        加班費：<label><input type="checkbox"> 依法計算</label><label><input type="checkbox"> 其他：<input type="text" style="width: 90px;"></label><br>
+                        發薪日：每月 <input type="number" style="width: 35px;"> 日　方式：<label><input type="checkbox"> 轉帳</label><label><input type="checkbox"> 現金</label><br>
+                        全勤／績效獎金：<input type="text" style="width: 120px;">　其他津貼：<input type="text" style="width: 120px;"><br>
+                        勞保／健保／職災保險：<label><input type="checkbox"> 依法辦理</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">住宿、膳食與交通 <span class="indo">ASRAMA, MAKAN DAN TRANSPORTASI</span></div>
+                    <div class="cell-content">
+                        住宿：<label><input type="checkbox"> 公司宿舍</label><label><input type="checkbox"> 外部宿舍</label><label><input type="checkbox"> 自理</label><br>
+                        房型：<label><input type="checkbox"> 套房</label><label><input type="checkbox"> 雅房</label>　每房 <input type="number" style="width: 35px;"> 人<br>
+                        膳食：<label><input type="checkbox"> 公司供餐</label><label><input type="checkbox"> 提供伙食津貼</label><label><input type="checkbox"> 自理</label><br>
+                        交通：<label><input type="checkbox"> 步行</label><label><input type="checkbox"> 公司接駁</label><label><input type="checkbox"> 自行騎車</label><br>
+                        膳宿費／代扣項目：<input type="text" class="long-input">
+                    </div>
+                </td>
+                <td colspan="2" class="cell-no-pad">
+                    <div class="section-title">期望工人條件 <span class="indo">KRITERIA PEKERJA</span></div>
+                    <div class="cell-content">
+                        性別：<label><input type="checkbox"> 不拘</label><label><input type="checkbox"> 男</label><label><input type="checkbox"> 女</label><br>
+                        年齡：<input type="number" style="width: 35px;"> 至 <input type="number" style="width: 35px;"> 歲　身高：<input type="number" style="width: 40px;"> cm 以上<br>
+                        經驗：<label><input type="checkbox"> 無經驗可</label><label><input type="checkbox"> 有工廠經驗</label><label><input type="checkbox"> 機台經驗</label><br>
+                        能力：<label><input type="checkbox"> 基本中文</label><label><input type="checkbox"> 可讀數字</label><label><input type="checkbox"> 可配合輪班</label><br>
+                        其他條件：<input type="text" class="long-input">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4" class="cell-no-pad">
+                    <div class="section-title">其他工作說明與注意事項 <span class="indo">KETERANGAN DAN PERHATIAN</span></div>
+                    <div class="cell-content">
+                        <textarea placeholder="請填寫產線特性、實際工作流程、特殊風險、旺季工時、調動範圍或其他應事先說明事項。"></textarea>
+                        <ul class="notice-list">
+                            <li>實際工時、休息、例假、休假及加班費依勞動法令與勞動契約辦理。</li>
+                            <li>工作內容、環境或班別如有重大變動，應事先清楚告知工人並依法辦理。</li>
+                            <li>工人應遵守廠區安全規範、標準作業程序及個人防護具使用要求。</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4">
+                    <strong>●請詳閱並確認上述工作內容、工作環境及工作條件後簽名●</strong>
+                    <span class="indo">Harap membaca dan menyetujui isi, lingkungan, dan kondisi kerja di atas sebelum menandatangani.</span>
+                    <div class="signature-box">
+                        <div class="signature-column"><hr style="border-top: 1px solid #000; margin-bottom: 2px;">公司代表簽名<br><span class="indo">TANDA TANGAN PERUSAHAAN</span></div>
+                        <div class="signature-column"><hr style="border-top: 1px solid #000; margin-bottom: 2px;">工人簽名／指紋<br><span class="indo">TANDA TANGAN / SIDIK JARI</span></div>
+                        <div class="signature-column">填表日期：<input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"> / <input type="text" style="width: 25px;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <button class="btn-print" onclick="saveDataAndPrint()">儲存 / 匯出成 PDF</button>
+    </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -566,13 +812,34 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
+    let activeFormType = 'caregiver';
+
+    function switchForm(formType) {
+        activeFormType = formType;
+        const isCaregiver = formType === 'caregiver';
+        document.getElementById('caregiverForm').classList.toggle('active', isCaregiver);
+        document.getElementById('manufacturingForm').classList.toggle('active', !isCaregiver);
+        document.getElementById('caregiverTab').classList.toggle('active', isCaregiver);
+        document.getElementById('manufacturingTab').classList.toggle('active', !isCaregiver);
+        document.getElementById('caregiverTab').setAttribute('aria-selected', String(isCaregiver));
+        document.getElementById('manufacturingTab').setAttribute('aria-selected', String(!isCaregiver));
+        document.title = isCaregiver ? '印尼勞工看護工詳情表' : '製造業外國勞工聘工詳情表';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function saveDataAndPrint() {
-        const empName = document.getElementById('employerName').value || "未填寫雇主姓名";
-        const patName = document.getElementById('patientName').value || "未填寫病患姓名";
+        const isManufacturing = activeFormType === 'manufacturing';
+        const empName = isManufacturing
+            ? (document.getElementById('manufacturerEmployerName').value || "未填寫公司名稱")
+            : (document.getElementById('employerName').value || "未填寫雇主姓名");
+        const patName = isManufacturing
+            ? (document.getElementById('manufacturingJobName').value || "未填寫工廠／職缺名稱")
+            : (document.getElementById('patientName').value || "未填寫病患姓名");
 
         db.collection("cases").add({
             employerName: empName,
             patientName: patName,
+            formType: isManufacturing ? 'manufacturing' : 'caregiver',
             uploadDate: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(() => {
