@@ -175,6 +175,24 @@
         .compact-options label {
             margin-right: 0;
         }
+        .option-group-title {
+            margin: 8px 0 4px;
+            padding: 4px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background: #f1f5f9;
+            color: #1e3a5f;
+            font-weight: bold;
+            text-align: center;
+        }
+        .option-group-title:first-child {
+            margin-top: 0;
+        }
+        .option-group-title .indo {
+            margin-top: 1px;
+            color: #64748b;
+            font-weight: normal;
+        }
         .notice-list {
             margin: 4px 0 0;
             padding-left: 18px;
@@ -252,6 +270,7 @@
             input[type="checkbox"] { transform: scale(1.4); margin-right: 8px; }
             label { padding: 5px 0; margin-right: 12px; }
             .compact-options { grid-template-columns: 1fr; gap: 0; }
+            .option-group-title { margin-top: 10px; padding: 6px 8px; }
             .signature-box { flex-direction: column; gap: 30px; }
             .signature-column { width: 100%; }
         }
@@ -287,6 +306,7 @@
             input[type="text"], input[type="number"], select { height: 11px; }
             textarea { min-height: 28px; resize: none; }
             .group-spacing { margin-top: 2px; }
+            .option-group-title { margin: 3px 0 1px; padding: 1px 2px; border-radius: 0; }
             .signature-box { flex-direction: row; gap: 0; }
             .signature-column { width: 30%; }
         }
@@ -382,7 +402,7 @@
             <td colspan="2" class="cell-no-pad">
                 <div class="section-title">病情狀況 <span class="indo">KEADAAN PASIEN</span></div>
                 <div class="cell-content">
-                    <label><input type="checkbox"> 癱瘓程度 <span class="indo-inline">Tingkat kelumpuhan：</span></label>
+                    <div class="option-group-title">癱瘓程度 <span class="indo">TINGKAT KELUMPUHAN</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 上身癱瘓 <span class="indo-inline">Lumpuh separuh atas</span></label>
                         <label><input type="checkbox"> 下身癱瘓 <span class="indo-inline">Lumpuh separuh bawah</span></label>
@@ -390,14 +410,14 @@
                         <label><input type="checkbox"> 全身癱瘓 <span class="indo-inline">Lumpuh total</span></label>
                     </div>
                     
-                    <label><input type="checkbox"> 行動能力 <span class="indo-inline">Mobilitas：</span></label>
+                    <div class="option-group-title">行動能力 <span class="indo">MOBILITAS</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 自由行動 <span class="indo-inline">Bergerak bebas</span></label>
                         <label><input type="checkbox"> 需扶持行走 <span class="indo-inline">Butuh bantuan berjalan</span></label>
                         <label><input type="checkbox"> 無法行走,需抱、移位 <span class="indo-inline">Tidak bisa jalan, harus digendong/pindah</span></label>
                     </div>
                     
-                    <label><input type="checkbox"> 意識狀態 <span class="indo-inline">Keadaan sadar：</span></label>
+                    <div class="option-group-title">意識狀態 <span class="indo">KEADAAN SADAR</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
                         <label><input type="checkbox"> 只能簡單對話 <span class="indo-inline">Hanya obrolan sederhana</span></label>
@@ -405,7 +425,7 @@
                         <label><input type="checkbox"> 無意識 <span class="indo-inline">Tidak sadar</span></label>
                     </div>
                     
-                    <label><input type="checkbox"> 排便能力 (BAB)：</label>
+                    <div class="option-group-title">排便能力 <span class="indo">KEMAMPUAN BUANG AIR BESAR (BAB)</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
                         <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label>
@@ -414,7 +434,7 @@
                         <label><input type="checkbox"> 需協助挖大便 <span class="indo-inline">Butuh bantuan mengeluarkan BAB</span></label>
                     </div>
                     
-                    <label><input type="checkbox"> 排尿能力 (Urin)：</label>
+                    <div class="option-group-title">排尿能力 <span class="indo">KEMAMPUAN BUANG AIR KECIL (URIN)</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 正常 <span class="indo-inline">Normal</span></label>
                         <label><input type="checkbox"> 便盆椅 <span class="indo-inline">Kursi toilet</span></label>
@@ -423,7 +443,7 @@
                         <label><input type="checkbox"> 需協助使用導尿管 <span class="indo-inline">Perlu bantuan pakai kateter urin</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 失智/認知狀況 <span class="indo-inline">Kondisi demensia/kognitif：</span></label>
+                    <div class="option-group-title">失智／認知狀況 <span class="indo">KONDISI DEMENSIA / KOGNITIF</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 輕度失智 <span class="indo-inline">Demensia ringan</span></label>
                         <label><input type="checkbox"> 中度失智 <span class="indo-inline">Demensia sedang</span></label>
@@ -435,7 +455,7 @@
                         <label><input type="checkbox"> 需防拔管 <span class="indo-inline">Perlu cegah cabut selang</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 治療/就醫狀況 <span class="indo-inline">Pengobatan/perawatan：</span></label>
+                    <div class="option-group-title">治療／就醫狀況 <span class="indo">PENGOBATAN / PERAWATAN</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 洗腎 <span class="indo-inline">Cuci darah</span></label>
                         <label><input type="checkbox"> 腹膜透析 <span class="indo-inline">Dialisis peritoneal</span></label>
@@ -445,7 +465,7 @@
                         <label><input type="checkbox"> 需量血糖 <span class="indo-inline">Perlu ukur gula darah</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 進食/吞嚥狀況 <span class="indo-inline">Makan/menelan：</span></label>
+                    <div class="option-group-title">進食／吞嚥狀況 <span class="indo">MAKAN / MENELAN</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 可自行進食 <span class="indo-inline">Bisa makan sendiri</span></label>
                         <label><input type="checkbox"> 需餵食 <span class="indo-inline">Perlu disuapi</span></label>
@@ -455,7 +475,7 @@
                         <label><input type="checkbox"> 鼻胃管灌食 <span class="indo-inline">Makan lewat selang NGT</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 管路/造口照顧 <span class="indo-inline">Selang/stoma：</span></label>
+                    <div class="option-group-title">管路／造口照顧 <span class="indo">PERAWATAN SELANG / STOMA</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 鼻胃管 <span class="indo-inline">Selang NGT</span></label>
                         <label><input type="checkbox"> 氣切管 <span class="indo-inline">Trakeostomi</span></label>
@@ -465,7 +485,7 @@
                         <label><input type="checkbox"> 傷口換藥 <span class="indo-inline">Ganti perban luka</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 皮膚/傷口狀況 <span class="indo-inline">Kulit/luka：</span></label>
+                    <div class="option-group-title">皮膚／傷口狀況 <span class="indo">KONDISI KULIT / LUKA</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 壓瘡 <span class="indo-inline">Luka tekan</span></label>
                         <label><input type="checkbox"> 糖尿病傷口 <span class="indo-inline">Luka diabetes</span></label>
@@ -474,7 +494,7 @@
                         <label><input type="checkbox"> 需定時翻身 <span class="indo-inline">Perlu dibalik badan rutin</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 醫療器材/輔具 <span class="indo-inline">Alat bantu/medis：</span></label>
+                    <div class="option-group-title">醫療器材／輔具 <span class="indo">ALAT MEDIS / ALAT BANTU</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 氧氣機 <span class="indo-inline">Mesin oksigen</span></label>
                         <label><input type="checkbox"> 抽痰機 <span class="indo-inline">Mesin sedot dahak</span></label>
@@ -484,7 +504,7 @@
                         <label><input type="checkbox"> 移位機 <span class="indo-inline">Alat pindah pasien</span></label>
                     </div>
 
-                    <label><input type="checkbox"> 睡眠/情緒狀況 <span class="indo-inline">Tidur/emosi：</span></label>
+                    <div class="option-group-title">睡眠／情緒狀況 <span class="indo">KONDISI TIDUR / EMOSI</span></div>
                     <div class="compact-options">
                         <label><input type="checkbox"> 夜間起床 <span class="indo-inline">Sering bangun malam</span></label>
                         <label><input type="checkbox"> 需夜間巡視 <span class="indo-inline">Perlu dipantau malam</span></label>
